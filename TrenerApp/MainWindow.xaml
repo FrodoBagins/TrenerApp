@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrenerApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="600" Width="800" Background="#091f42" Left="100" Top="20">
     <Grid>
-        
+        <TabControl TabStripPlacement="Left" Margin="5px">
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="50" Source="images/home.png"/>
+                </TabItem.Header>
+
+
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="50" Source="images/profile.png"/>
+                </TabItem.Header>
+
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="50" Source="images/callendar.png"/>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="50" Source="images/settings.png"/>
+                </TabItem.Header>
+
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
