@@ -113,8 +113,8 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0" Grid.Column="0" Source="images/cardio.png"/>
-                        <Label Grid.Row="1" Grid.Column="0" Background="Red" Content="Cardio" FontSize="20" Padding="10"/>
+                        <Image Grid.Row="0" Grid.Column="0" Source="images/Wege.jpg"/>
+                        <Label Grid.Row="1" Grid.Column="0" Background="Red" Content="Dania Wegetariańskie" FontSize="12" Padding="10"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -129,12 +129,7 @@
                     <Image Width="50" Source="images/callendar.png"/>
                 </TabItem.Header>
             </TabItem>
-            <TabItem Height="100">
-                <TabItem.Header>
-                    <Image Width="50" Source="images/dumbbell.png"/>
-                </TabItem.Header>
 
-            </TabItem>
             <TabItem Height="100">
                 <TabItem.Header>
                     <Image Width="50" Source="images/settings.png"/>
