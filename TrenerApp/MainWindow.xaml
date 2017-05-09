@@ -237,6 +237,53 @@
                 <TabItem.Header>
                     <Image Width="50" Source="images/callendar.png"/>
                 </TabItem.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--<Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>-->
+
+                    <DatePicker Grid.Column="0" HorizontalAlignment="Center"
+                                Margin="0,30,0,0"
+                                FontSize="20"
+                                Width="185"
+                                VerticalAlignment="Top"
+                                SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+
+                    <Grid Grid.Column="1" Margin="30">
+                        <ListBox Name="recipes" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10">
+                                        <Grid Margin="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Column="0" Grid.RowSpan="2" MaxHeight="64"
+                                                   Source="{Binding Path=imagePath}">
+                                            </Image>
+                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=title}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=description}"></TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+
+                
+
             </TabItem>
             <TabItem Name="RecipesTab" 
                      Height="100">

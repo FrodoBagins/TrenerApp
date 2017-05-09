@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Recipe.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\Food.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\bigos.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\schabowe.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
