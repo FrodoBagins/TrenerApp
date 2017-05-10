@@ -59,5 +59,16 @@ namespace TrenerApp
             //}
         }
 
+
+        private void BMIUpdateClick(object sender, EventArgs e)
+        {
+
+            WeightWindow dlg = new WeightWindow();
+            dlg.ShowDialog();
+
+
+        }
+
+
     }
 }

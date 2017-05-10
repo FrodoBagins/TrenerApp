@@ -1,0 +1,39 @@
+﻿<Window x:Class="TrenerApp.WeightWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrenerApp"
+        mc:Ignorable="d"
+        Title="WeightWindow" Height="150" Width="200">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Name="GiveWeightLabel" Content="Podaj swoją wage:" Margin="5,5,5,0"></Label>
+
+        <TextBox Grid.Row="1" Name="GiveWeightTextBox" Text="Podaj wagę" Width="100" Height="20"></TextBox>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition>
+                </ColumnDefinition>
+                <ColumnDefinition>
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+
+            <Button Grid.Column="0" Name="AccetpWeightButton" Content="Akceptuj"
+                    Click="Accept"></Button>
+            <Button Click="Delete" Grid.Column="1" Name="DeleteWeightButton" Content="Anuluj"></Button>
+            
+            
+        </Grid>
+        
+        
+    </Grid>
+</Window>

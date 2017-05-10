@@ -123,6 +123,7 @@
                                 Width="100"
                                 FontSize="20"
                                 Foreground="White"
+                                Click="BMIUpdateClick"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 >
