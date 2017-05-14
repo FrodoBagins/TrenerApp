@@ -283,7 +283,7 @@
                     </Grid>
                 </Grid>
 
-                
+
 
             </TabItem>
             <TabItem Name="RecipesTab" 
@@ -291,6 +291,65 @@
                 <TabItem.Header>
                     <Image Width="50" Source="images/Food.jpg"/>
                 </TabItem.Header>
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition />
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="350"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Name="SearchRecipsGrid" Grid.Row="1" Grid.Column="0">
+                        <Label Width="150" Height="70" FontSize="40" Margin="37,33,717,10">Szukaj:</Label>
+                    </Grid>
+                    <Grid Name="SearchRecipsGrid2" Grid.Row="1" Grid.Column="0">
+                        <TextBox Height="50" Width="240" FontSize="30" Margin="192,36,462,27"></TextBox>
+                    </Grid>
+                    <Grid Name="SearchRecipsGrid3" Grid.Row="1" Grid.Column="0">
+                        <Button Height="50" Width="50" Margin="489,34,355,29">OK</Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <ComboBox Name="AllTypes"
+                              	SelectionChanged="AllTypes_SelectionChanged"
+                              	Loaded="ComboBox_LoadedAllTypes"
+                              	Margin="393,-10,336,10"
+                              	Width="170">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <ComboBox Name="ComboBoxKcal"
+                              	SelectionChanged="Kcal_SelectionChanged"
+                              	Loaded="ComboBox_LoadedKcal"
+                              	Margin="191,-10,538,10"
+                              	Width="170">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <ListBox Name="searchRecips" Margin="193,33,157,35" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10">
+                                        <Grid Margin="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="70"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Image Grid.Column="0" Grid.RowSpan="2" MaxHeight="64"
+                                                   Source="{Binding Path=imagePath}">
+                                            </Image>
+                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=title}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=description}"></TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
 
             </TabItem>
             <TabItem Name="SettingsTab" 

@@ -31,17 +31,18 @@ namespace TrenerApp
             {
                 title = "Schabowy",
                 description = "Mniam mniam pyszne mięsko.",
-                imagePath = "images/schabowe.png"
+                imagePath = "images/schabowe.jpg"
             });
 
             recipesList.Add(new Recipe()
             {
                 title = "Bigos szlachetny",
                 description = "Kunszt i tradycja.",
-                imagePath = "images/bigos.png"
+                imagePath = "images/bigos.jpg"
             });
 
             recipes.ItemsSource = recipesList;
+            searchRecips.ItemsSource = recipesList;
         }
 
         private void DatePicker_SelectedDateChanged(object sender,
@@ -69,6 +70,52 @@ namespace TrenerApp
 
         }
 
+        private void ComboBox_LoadedAllTypes(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("Wszystkie typy");
+            data.Add("Dania wegetariańskie");
+            data.Add("Dania mięsne");
+            data.Add("Desery");
+            data.Add("Sałatki");
+
+            var comboBox = sender as ComboBox;
+
+            comboBox.ItemsSource = data;
+
+            comboBox.SelectedIndex = 0;
+        }
+        private void AllTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+
+            string value = comboBox.SelectedItem as string;
+            this.Title = "Posiłki: " + value;
+        }
+
+        private void ComboBox_LoadedKcal(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("Kaloryczność");
+            data.Add("0-100");
+            data.Add("101-200");
+            data.Add("201-300");
+            data.Add("301-400");
+
+            var comboBox = sender as ComboBox;
+
+            comboBox.ItemsSource = data;
+
+            comboBox.SelectedIndex = 0;
+        }
+        private void Kcal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            string value = comboBox.SelectedItem as string;
+            this.Title = "Kaloryczność dania: " + value;
+        }
 
     }
-}
+    }
