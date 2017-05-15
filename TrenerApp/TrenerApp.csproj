@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BmiCommands.cs" />
+    <Compile Include="HelperClass.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="WeightWindow.xaml.cs">
       <DependentUpon>WeightWindow.xaml</DependentUpon>
@@ -149,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\schabowe.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UserClass\UserClass.csproj">
+      <Project>{44B793FE-84C8-46F4-85C5-DD8814233DEB}</Project>
+      <Name>UserClass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UserClass;
 
 namespace TrenerApp
 {
@@ -24,6 +26,8 @@ namespace TrenerApp
         {
             InitializeComponent();
             List<Recipe> recipesList;
+
+           
 
             recipesList = new List<Recipe>();
 
@@ -45,6 +49,21 @@ namespace TrenerApp
             searchRecips.ItemsSource = recipesList;
         }
 
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            Person osoba = new Person();
+        
+            osoba = PersonData.Instance.GetPerson(0);
+
+            BMI_StatusBar.DataContext = osoba;
+            BMI_Value_Label.DataContext = osoba;
+
+        }
+
+
         private void DatePicker_SelectedDateChanged(object sender,
             SelectionChangedEventArgs e)
         {
@@ -63,9 +82,18 @@ namespace TrenerApp
 
         private void BMIUpdateClick(object sender, EventArgs e)
         {
+            Person osoba = new Person();
+
+            osoba = PersonData.Instance.GetPerson(0);
+
+            BMI_StatusBar.Value = 30;
+            BMI_Value_Label.DataContext = osoba;
+
 
             WeightWindow dlg = new WeightWindow();
+            dlg.Owner = this;
             dlg.ShowDialog();
+
 
 
         }
@@ -118,4 +146,4 @@ namespace TrenerApp
         }
 
     }
-    }
+}

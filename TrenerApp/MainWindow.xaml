@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrenerApp"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="600" Width="1000" Left="100" Top="20">
     <Window.Background>
         <LinearGradientBrush>
@@ -81,7 +82,7 @@
                         </Label>
 
                         <Label Name="BMI_Value_Label"
-                               Content="20.6"
+                               Content="{Binding Path=Weight,UpdateSourceTrigger=PropertyChanged}"
                                Grid.Column="2" 
                                Grid.Row="0"
                                Foreground="White"
@@ -96,8 +97,8 @@
                                    Grid.Column="0" Grid.ColumnSpan="3"
                                    Grid.Row="1"
                                      Minimum="0"
-                                     Maximum="100"
-                                     Value="75"
+                                     Maximum="30"
+                                     Value="{Binding Path=BMI,UpdateSourceTrigger=PropertyChanged}"
                                     
                                      Margin="10,10,10,10"
                                    >

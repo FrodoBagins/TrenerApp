@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrenerApp"
+        xmlns:app="clr-namespace:TrenerApp"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="WeightWindow" Height="150" Width="200">
+    <Window.CommandBindings>
+        <CommandBinding Command="app:BmiCommands.CountBMI" Executed="CountBMI_Executed" CanExecute="CountBMI_CanExecute"></CommandBinding>
+    </Window.CommandBindings>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -16,7 +21,7 @@
 
         <Label Grid.Row="0" Name="GiveWeightLabel" Content="Podaj swoją wage:" Margin="5,5,5,0"></Label>
 
-        <TextBox Grid.Row="1" Name="GiveWeightTextBox" Text="Podaj wagę" Width="100" Height="20"></TextBox>
+        <TextBox Grid.Row="1" Name="GiveWeightTextBox" Text="{Binding Path=Weight, UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" Width="100" Height="20"></TextBox>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -28,7 +33,9 @@
 
 
             <Button Grid.Column="0" Name="AccetpWeightButton" Content="Akceptuj"
-                    Click="Accept"></Button>
+                    Click="Accept"
+                    Command="app:BmiCommands.CountBMI"
+                    ></Button>
             <Button Click="Delete" Grid.Column="1" Name="DeleteWeightButton" Content="Anuluj"></Button>
             
             
