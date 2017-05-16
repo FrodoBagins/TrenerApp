@@ -68,6 +68,14 @@ namespace TrenerApp
                 category = "Dania wegetariańskie"
             });
 
+            recipesList.Add(new Recipe()
+            {
+                title = "Zupa Nic",
+                description = "Staropolska zupa Nic.",
+                imagePath = "images/zupanic.jpg",
+                category = "Dania wegetariańskie"
+            });
+
             recipes.ItemsSource = recipesList;
             searchRecips.ItemsSource = recipesList;
 
@@ -223,6 +231,8 @@ namespace TrenerApp
             try
             {
                 osoba.Weight = Double.Parse(tb_weight.Text);
+                osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
+                BMI_StatusBar.Value = osoba.WeightLeft;
             }
             catch (Exception w)
             {
