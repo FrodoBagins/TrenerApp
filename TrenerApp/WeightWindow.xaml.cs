@@ -48,7 +48,21 @@ namespace TrenerApp
 
         private void Accept(object sender, EventArgs e)
         {
-            DialogResult = true;
+          //  DialogResult = true;
+
+        //    Application curApp = Application.Current;
+       //     Window mainWindow = curApp.MainWindow;
+
+            osoba = PersonData.Instance.GetPerson(0);
+
+            osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
+
+
+            (this.Owner as MainWindow).BMI_StatusBar.Value = osoba.WeightLeft;
+
+       //     mainWindow.BMI_StatusBar.Value = osoba.WeightToLose;
+
+
             Close();
         }
 

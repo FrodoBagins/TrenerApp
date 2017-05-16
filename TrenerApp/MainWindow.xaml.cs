@@ -61,11 +61,13 @@ namespace TrenerApp
 
             BMI_StatusBar.DataContext = osoba;
             BMI_Value_Label.DataContext = osoba;
+            BMI_Value_TextBlock.DataContext = osoba;
             tb_name.DataContext = osoba;
             tb_surname.DataContext = osoba;
             tb_age.DataContext = osoba;
             tb_weight.DataContext = osoba;
             lb_weight.DataContext = osoba;
+            lb_weight_to_lose.DataContext = osoba;
             tb_height.DataContext = osoba;
             lb_BMI.DataContext = osoba;
         }
@@ -92,12 +94,11 @@ namespace TrenerApp
             Person osoba = new Person();
             osoba = PersonData.Instance.GetPerson(0);
 
-            BMI_StatusBar.Value = 30;
             BMI_Value_Label.DataContext = osoba;
 
             WeightWindow dlg = new WeightWindow();
             dlg.Owner = this;
-            dlg.ShowDialog();
+            dlg.Show();
         }
 
         private void ComboBox_LoadedAllTypes(object sender, RoutedEventArgs e)
