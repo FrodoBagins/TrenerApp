@@ -14,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
 using UserClass;
 
 namespace TrenerApp
@@ -25,6 +28,7 @@ namespace TrenerApp
     {
         //Person osoba;
         Person osoba = new Person();
+       // public ObservableCollection<Recipe> recipesList;
 
         public MainWindow()
         {
@@ -36,18 +40,40 @@ namespace TrenerApp
             {
                 title = "Schabowy",
                 description = "Mniam mniam pyszne mięsko.",
-                imagePath = "images/schabowe.jpg"
+                imagePath = "images/schabowe.jpg",
+                category = "Dania mięsne"
             });
 
             recipesList.Add(new Recipe()
             {
                 title = "Bigos szlachetny",
                 description = "Kunszt i tradycja.",
-                imagePath = "images/bigos.jpg"
+                imagePath = "images/bigos.jpg",
+                category = "Dania mięsne"
+            });
+
+            recipesList.Add(new Recipe()
+            {
+                title = "Ryż z warzywami",
+                description = "Danie bardzo ostre.",
+                imagePath = "images/Rice.jpg",
+                category = "Dania wegetariańskie"
+            });
+
+            recipesList.Add(new Recipe()
+            {
+                title = "Ryba pieczona",
+                description = "Rybka lubi pływac.",
+                imagePath = "images/bigos.jpg",
+                category = "Dania wegetariańskie"
             });
 
             recipes.ItemsSource = recipesList;
             searchRecips.ItemsSource = recipesList;
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource) as CollectionView;
+            view.Filter = RecipesFilter;
+
         }
 
 
@@ -100,7 +126,7 @@ namespace TrenerApp
             dlg.ShowDialog();
         }
 
-        private void ComboBox_LoadedAllTypes(object sender, RoutedEventArgs e)
+        /*private void ComboBox_LoadedAllTypes(object sender, RoutedEventArgs e)
         {
             // ... A List.
             List<string> data = new List<string>();
@@ -115,7 +141,7 @@ namespace TrenerApp
             comboBox.ItemsSource = data;
 
             comboBox.SelectedIndex = 0;
-        }
+        }*/
         private void AllTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
@@ -147,6 +173,22 @@ namespace TrenerApp
             this.Title = "Kaloryczność dania: " + value;
         }
 
+        private bool RecipesFilter(object recipe)
+        {
+            if (string.IsNullOrEmpty(searchTextBox.Text))
+            {
+                return true;
+            }
+            else
+            {
+                return ((recipe as Recipe).title.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+        }
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
+        }
         private void Change_Thumbnail(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
