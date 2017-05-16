@@ -395,25 +395,28 @@
                 <RowDefinition Height="350"/>
             </Grid.RowDefinitions>
 
-            <Grid Name="SearchRecipsGrid" Grid.Row="1" Grid.Column="0">
-                <Label Width="150" Height="70" FontSize="40" Margin="37,33,717,10">Szukaj:</Label>
-            </Grid>
-            <Grid Name="SearchRecipsGrid2" Grid.Row="1" Grid.Column="0">
-                <TextBox Height="50" Width="240" FontSize="30" Margin="192,36,462,27"></TextBox>
-            </Grid>
-            <Grid Name="SearchRecipsGrid3" Grid.Row="1" Grid.Column="0">
-                <Button Height="50" Width="50" Margin="489,34,355,29">OK</Button>
-            </Grid>
-            <Grid Grid.Row="2" Grid.Column="0">
-                <ComboBox Name="AllTypes"
+                    <Grid Name="SearchRecipsGrid" Grid.Row="1" Grid.Column="0">
+                        <Label Width="150" Height="70" FontSize="40" Margin="37,33,717,10">Szukaj:</Label>
+                    </Grid>
+                    <Grid Name="SearchRecipsGrid2" Grid.Row="1" Grid.Column="0">
+                        <TextBox Name="searchTextBox" TextChanged="searchTextBox_TextChanged" Height="50" Width="240" FontSize="30" Margin="192,36,462,27"></TextBox>
+                    </Grid>
+                    <Grid Name="SearchRecipsGrid3" Grid.Row="1" Grid.Column="0">
+                        <Button Height="50" Width="50" Margin="489,34,355,29">OK</Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <ComboBox Name="AllTypes"
                               	SelectionChanged="AllTypes_SelectionChanged"
-                              	Loaded="ComboBox_LoadedAllTypes"
+                     
                               	Margin="393,-10,336,10"
                               	Width="170">
-                </ComboBox>
-            </Grid>
-            <Grid Grid.Row="2" Grid.Column="1">
-                <ComboBox Name="ComboBoxKcal"
+                            <ComboBoxItem>Wszystkie dania</ComboBoxItem>
+                            <ComboBoxItem>Dania mięsne</ComboBoxItem>
+                            <ComboBoxItem>Dania wegetariańskie</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <ComboBox Name="ComboBoxKcal"
                               	SelectionChanged="Kcal_SelectionChanged"
                               	Loaded="ComboBox_LoadedKcal"
                               	Margin="191,-10,538,10"
