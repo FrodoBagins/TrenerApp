@@ -270,21 +270,17 @@
                         <Label Grid.Row="4" Grid.Column="0" Margin="3">Waga [kg]</Label>
                         <Label Grid.Row="5" Grid.Column="0" Margin="3">Wzrost [cm]</Label>
                         <Label Grid.Row="6" Grid.Column="0" Margin="3">BMI</Label>
-                        <Label Grid.Row="7" Grid.Column="0" Margin="3">Płeć</Label>
                         <TextBox Name="tb_name" Grid.Row="1" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Name,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBox Name="tb_surname" Grid.Row="2" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=SecondName,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBox Name="tb_age" Grid.Row="3" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Age,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBox Name="tb_weight" Grid.Row="4" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Weight,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBox Name="tb_height" Grid.Row="5" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Height,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <Label Name="lb_BMI" Grid.Row="6" Grid.Column="1" Margin="3" FontWeight="Bold" Background="Transparent">wyliczone podpiąć</Label>
-                        <ComboBox Name="cb_sex" Grid.Row="7" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent">
-                            <ComboBoxItem>kobieta</ComboBoxItem>
-                            <ComboBoxItem>mężczyzna</ComboBoxItem>
-                        </ComboBox>
+                        <Button Grid.Row="7" Grid.Column="1" Height="30" Click="Change_UserData" Margin="0,1,-41,1">Zapisz zmiany</Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center">Plany żywieniowe</Label>
-                        
+
 
                     </Grid>
                     <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">

@@ -23,13 +23,13 @@ namespace TrenerApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Person osoba;
+        Person osoba = new Person();
+
         public MainWindow()
         {
             InitializeComponent();
             List<Recipe> recipesList;
-
-
-
             recipesList = new List<Recipe>();
 
             recipesList.Add(new Recipe()
@@ -55,7 +55,7 @@ namespace TrenerApp
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            Person osoba = new Person();
+            //Person osoba = new Person();
 
             osoba = PersonData.Instance.GetPerson(0);
 
@@ -68,7 +68,6 @@ namespace TrenerApp
             lb_weight.DataContext = osoba;
             tb_height.DataContext = osoba;
             lb_BMI.DataContext = osoba;
-            cb_sex.DataContext = osoba;
         }
 
 
@@ -91,19 +90,14 @@ namespace TrenerApp
         private void BMIUpdateClick(object sender, EventArgs e)
         {
             Person osoba = new Person();
-
             osoba = PersonData.Instance.GetPerson(0);
 
             BMI_StatusBar.Value = 30;
             BMI_Value_Label.DataContext = osoba;
 
-
             WeightWindow dlg = new WeightWindow();
             dlg.Owner = this;
             dlg.ShowDialog();
-
-
-
         }
 
         private void ComboBox_LoadedAllTypes(object sender, RoutedEventArgs e)
@@ -167,5 +161,30 @@ namespace TrenerApp
             }
         }
 
+        private void Change_UserData(object sender, RoutedEventArgs e)
+        {
+            osoba = PersonData.Instance.GetPerson(0);
+
+            osoba.Name = tb_name.Text;
+            osoba.SecondName = tb_surname.Text;
+            osoba.Age = Int32.Parse(tb_age.Text);
+            try
+            {
+                osoba.Height = Double.Parse(tb_height.Text);
+            }
+            catch (Exception w)
+            {
+                MessageBoxResult result = MessageBox.Show("Wprowadź poprawny wzrost", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+
+            try
+            {
+                osoba.Weight = Double.Parse(tb_weight.Text);
+            }
+            catch (Exception w)
+            {
+                MessageBoxResult result = MessageBox.Show("Wprowadź poprawną wagę", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+        }
     }
 }
