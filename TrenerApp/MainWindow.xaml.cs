@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -143,6 +144,20 @@ namespace TrenerApp
             var comboBox = sender as ComboBox;
             string value = comboBox.SelectedItem as string;
             this.Title = "Kaloryczność dania: " + value;
+        }
+
+        private void Change_Thumbnail(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".png";
+            openFileDialog.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+
+            Nullable<bool> result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                thumbnail.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
         }
 
     }

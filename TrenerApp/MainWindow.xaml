@@ -232,6 +232,68 @@
                 <TabItem.Header>
                     <Image Width="50" Source="images/profile.png"/>
                 </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="images/profle_background.jpg" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="220"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Name="thumbnail" Grid.Row="0" Grid.Column="0" Margin="0 15"  Source="images/womanthumbnail.png"/>
+                    <Button Grid.Row="1" Grid.Column="0" Width="180" Height="30" Click="Change_Thumbnail">Zmień</Button>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1"  Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" FontSize="15" FontWeight="Bold">Dane personalne</Label>
+                        <Label Grid.Row="1" Grid.Column="0" Margin="3">Imię</Label>
+                        <Label Grid.Row="2" Grid.Column="0" Margin="3">Nazwisko</Label>
+                        <Label Grid.Row="3" Grid.Column="0" Margin="3">Wiek</Label>
+                        <Label Grid.Row="4" Grid.Column="0" Margin="3">Waga</Label>
+                        <Label Grid.Row="5" Grid.Column="0" Margin="3">BMI</Label>
+                        <Label Grid.Row="6" Grid.Column="0" Margin="3">Płeć</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent">wpisz imię</TextBox>
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent">wpisz nazwisko</TextBox>
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent">wpisz wiek</TextBox>
+                        <TextBox Grid.Row="4" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent">wpisz wagę</TextBox>
+                        <Label Grid.Row="5" Grid.Column="1" Margin="3" FontWeight="Bold" Background="Transparent">BMI</Label>
+                        <ComboBox Grid.Row="6" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent">
+                            <ComboBoxItem>kobieta</ComboBoxItem>
+                            <ComboBoxItem>mężczyzna</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="5" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold">Obecna waga</Label>
+                        <Label Grid.Row="1" Grid.Column="0" Margin="5" VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold">Mój cel</Label>
+                        <Label Grid.Row="0" Grid.Column="1" Margin="5" HorizontalContentAlignment="Center"  FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center">120kg</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Background="Transparent">20kg</TextBox>
+                    </Grid>
+                </Grid>
 
             </TabItem>
             <TabItem Name="CalendarTab" 
