@@ -248,7 +248,7 @@
                     </Grid.ColumnDefinitions>
                     <Image Name="thumbnail" Grid.Row="0" Grid.Column="0" Margin="0 15"  Source="images/womanthumbnail.png"/>
                     <Button Grid.Row="1" Grid.Column="0" Width="180" Height="30" Click="Change_Thumbnail">Zmień</Button>
-                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1"  Margin="5">
+                    <Grid Grid.Row="2" Grid.Column="0"   Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -279,6 +279,11 @@
                             <ComboBoxItem>mężczyzna</ComboBoxItem>
                         </ComboBox>
                     </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+                        <Label FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center">Plany żywieniowe</Label>
+                        
+
+                    </Grid>
                     <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -290,8 +295,8 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="5" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold">Obecna waga</Label>
                         <Label Grid.Row="1" Grid.Column="0" Margin="5" VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold">Mój cel</Label>
-                        <Label Grid.Row="0" Grid.Column="1" Margin="5" HorizontalContentAlignment="Center"  FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center">120kg</Label>
-                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" HorizontalContentAlignment="Center" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Background="Transparent">20kg</TextBox>
+                        <Label Grid.Row="0" Grid.Column="1" Margin="5" HorizontalContentAlignment="Left"  FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center">120kg</Label>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" HorizontalContentAlignment="Left" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Background="Transparent">20kg</TextBox>
                     </Grid>
                 </Grid>
 
