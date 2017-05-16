@@ -14,9 +14,8 @@ namespace UserClass
 
         private PersonData()
         {
-            data.Add(new Person("Jan", "Kowalski", "jankowalski@gmail.com", 100.0, 195.5));    
+            data.Add(new Person("Jan", "Kowalski", "jankowalski@gmail.com", 100.0, 195.5, 25));
         }
-
 
         private static PersonData singleton = null;
         public static PersonData Instance

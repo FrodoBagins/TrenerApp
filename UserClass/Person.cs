@@ -16,6 +16,7 @@ namespace UserClass
         private double weight;
         private double height;
         private double bmi;
+        private int age;
 
 
         public string Name
@@ -54,15 +55,22 @@ namespace UserClass
             set { bmi = value; OnPropertyChanged("NameAndEmail"); }
         }
 
+        public int Age
+        {
+            get { return age; }
+            set { age = value; OnPropertyChanged("NameAndEmail"); }
+        }
+
         public Person() { }
-        public Person(string name, string secondname, string email, double weight, double height)
+        public Person(string name, string secondname, string email, double weight, double height, int age)
         {
             Name = name;
             SecondName = secondname;
             Email = email;
             Weight = weight;
             Height = height;
-            BMI = weight/((height/100)*(height/100));
+            BMI = weight / ((height / 100) * (height / 100));
+            Age = age;
         }
 
         public string NameAndEmail
@@ -85,10 +93,6 @@ namespace UserClass
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
-
         }
-
-
-
     }
 }

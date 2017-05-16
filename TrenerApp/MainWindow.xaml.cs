@@ -28,7 +28,7 @@ namespace TrenerApp
             InitializeComponent();
             List<Recipe> recipesList;
 
-           
+
 
             recipesList = new List<Recipe>();
 
@@ -56,12 +56,19 @@ namespace TrenerApp
         {
 
             Person osoba = new Person();
-        
+
             osoba = PersonData.Instance.GetPerson(0);
 
             BMI_StatusBar.DataContext = osoba;
             BMI_Value_Label.DataContext = osoba;
-
+            tb_name.DataContext = osoba;
+            tb_surname.DataContext = osoba;
+            tb_age.DataContext = osoba;
+            tb_weight.DataContext = osoba;
+            lb_weight.DataContext = osoba;
+            tb_height.DataContext = osoba;
+            lb_BMI.DataContext = osoba;
+            cb_sex.DataContext = osoba;
         }
 
 
