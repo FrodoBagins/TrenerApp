@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using UserClass;
+using RecipeClass;
 
 namespace TrenerApp
 {
@@ -28,62 +30,19 @@ namespace TrenerApp
     {
         //Person osoba;
         Person osoba = new Person();
-       // public ObservableCollection<Recipe> recipesList;
+        // public ObservableCollection<Recipe> recipesList;
 
         public MainWindow()
         {
             InitializeComponent();
-            List<Recipe> recipesList;
-            recipesList = new List<Recipe>();
 
-            recipesList.Add(new Recipe()
-            {
-                title = "Schabowy",
-                description = "Mniam mniam pyszne mięsko.",
-                imagePath = "images/schabowe.jpg",
-                category = "Dania mięsne"
-            });
-
-            recipesList.Add(new Recipe()
-            {
-                title = "Bigos szlachetny",
-                description = "Kunszt i tradycja.",
-                imagePath = "images/bigos.jpg",
-                category = "Dania mięsne"
-            });
-
-            recipesList.Add(new Recipe()
-            {
-                title = "Ryż z warzywami",
-                description = "Danie bardzo ostre.",
-                imagePath = "images/Rice.jpg",
-                category = "Dania wegetariańskie"
-            });
-
-            recipesList.Add(new Recipe()
-            {
-                title = "Ryba pieczona",
-                description = "Rybka lubi pływac.",
-                imagePath = "images/bigos.jpg",
-                category = "Dania wegetariańskie"
-            });
-
-            recipesList.Add(new Recipe()
-            {
-                title = "Zupa Nic",
-                description = "Staropolska zupa Nic.",
-                imagePath = "images/zupanic.jpg",
-                category = "Dania wegetariańskie"
-            });
-
-            recipes.ItemsSource = recipesList;
-            searchRecips.ItemsSource = recipesList;
+            recipes.ItemsSource = RecipeData.Instance.Recipes;
+            searchRecips.ItemsSource = RecipeData.Instance.Recipes;
+            Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
-
         }
-
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -135,10 +94,12 @@ namespace TrenerApp
             dlg.Show();
         }
 
-        /*private void ComboBox_LoadedAllTypes(object sender, RoutedEventArgs e)
+
+        private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             // ... A List.
             List<string> data = new List<string>();
+            data.Add("");
             data.Add("Wszystkie typy");
             data.Add("Dania wegetariańskie");
             data.Add("Dania mięsne");
@@ -150,8 +111,9 @@ namespace TrenerApp
             comboBox.ItemsSource = data;
 
             comboBox.SelectedIndex = 0;
-        }*/
-        private void AllTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        }
+
+        private void Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
 
@@ -159,10 +121,11 @@ namespace TrenerApp
             this.Title = "Posiłki: " + value;
         }
 
-        private void ComboBox_LoadedKcal(object sender, RoutedEventArgs e)
+        private void CaloriesComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             // ... A List.
             List<string> data = new List<string>();
+            data.Add("");
             data.Add("Kaloryczność");
             data.Add("0-100");
             data.Add("101-200");
@@ -175,12 +138,41 @@ namespace TrenerApp
 
             comboBox.SelectedIndex = 0;
         }
-        private void Kcal_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void Calories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
             string value = comboBox.SelectedItem as string;
             this.Title = "Kaloryczność dania: " + value;
         }
+
+        private void RatingsComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            // ... A List.
+            List<string> data = new List<string>();
+            data.Add("");
+            data.Add("Ocena");
+            data.Add("0");
+            data.Add("1");
+            data.Add("2");
+            data.Add("3");
+            data.Add("4");
+            data.Add("5");
+
+            var comboBox = sender as ComboBox;
+
+            comboBox.ItemsSource = data;
+
+            comboBox.SelectedIndex = 0;
+        }
+
+        private void Ratings_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            string value = comboBox.SelectedItem as string;
+            this.Title = "Ocena dania: " + value;
+        }
+
 
         private bool RecipesFilter(object recipe)
         {
@@ -194,10 +186,42 @@ namespace TrenerApp
             }
         }
 
+
+    //    private List<object> recipe = new List<object>();
+
+        private ListCollectionView View
+        {
+            get
+            {
+               return (ListCollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource);
+            }
+        }
+
+        private void Filter(object sender, RoutedEventArgs e)
+        {
+            int minimumPrice = int.Parse(RatingsComboBox.Text);
+          
+                View.Filter = delegate (object item)
+                {
+                    Recipe product = item as Recipe;
+
+                    if (product != null)
+                    {
+                        return (product.Rating > minimumPrice);
+                    }
+                    return false;
+                };
+            
+        }
+
+
+
+
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
         }
+
         private void Change_Thumbnail(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();

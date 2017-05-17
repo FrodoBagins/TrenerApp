@@ -4,9 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TrenerApp"
+        xmlns:src="clr-namespace:TrenerApp"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Title="MainWindow" Height="600" Width="1000" Left="100" Top="20">
+    <Window.Resources>
+
+    </Window.Resources>
     <Window.Background>
         <LinearGradientBrush>
             <GradientStop Color="#42f456" Offset="0"/>
@@ -207,22 +211,22 @@
                         CornerRadius="30,30,30,30"
                                   
                     >
-                    <Grid Name="NewsFeedGrid"
+                        <Grid Name="NewsFeedGrid"
                         ShowGridLines="False"
                           Grid.Row="0" 
                           Grid.Column="3" 
                           Margin="10" 
                           Background="Transparent">
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
                     </Border>
 
 
@@ -394,10 +398,10 @@
                                                 <RowDefinition></RowDefinition>
                                             </Grid.RowDefinitions>
                                             <Image Grid.Column="0" Grid.RowSpan="2" MaxHeight="64"
-                                                   Source="{Binding Path=imagePath}">
+                                                   Source="{Binding Path=ImagePath}">
                                             </Image>
-                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=title}"></TextBlock>
-                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=description}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=Title}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=Description}"></TextBlock>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -411,47 +415,89 @@
                 <TabItem.Header>
                     <Image Width="50" Source="images/Food.jpg"/>
                 </TabItem.Header>
-                <Grid>
+                <Grid Margin="3">
                     <Grid.Background>
                         <ImageBrush ImageSource="images/profle_background.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition />
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="350"/>
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition />
 
-                    <Grid Name="SearchRecipsGrid" Grid.Row="1" Grid.Column="0">
-                        <Label Width="150" Height="70" FontSize="40" Margin="37,33,717,10">Szukaj:</Label>
-                    </Grid>
-                    <Grid Name="SearchRecipsGrid2" Grid.Row="1" Grid.Column="0">
-                        <TextBox Name="searchTextBox" TextChanged="searchTextBox_TextChanged" Height="50" Width="240" FontSize="30" Margin="192,36,462,27"></TextBox>
-                    </Grid>
-                    <Grid Name="SearchRecipsGrid3" Grid.Row="1" Grid.Column="0">
-                        <Button Height="50" Width="50" Margin="489,34,355,29">OK</Button>
-                    </Grid>
-                    <Grid Grid.Row="2" Grid.Column="0">
-                        <ComboBox Name="AllTypes"
-                              	SelectionChanged="AllTypes_SelectionChanged"
-                     
-                              	Margin="393,-10,336,10"
-                              	Width="170">
-                            <ComboBoxItem>Wszystkie dania</ComboBoxItem>
-                            <ComboBoxItem>Dania mięsne</ComboBoxItem>
-                            <ComboBoxItem>Dania wegetariańskie</ComboBoxItem>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Name="RecipesGrid" 
+                      Grid.Column="0"
+                      ShowGridLines="True">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label  Name="SearchRecipesLabel"
+                                Grid.Row="0" 
+                                Grid.Column="0" 
+                                Margin="5,0,5,0"
+                                Height="40"
+                                FontSize="20" >Szukaj:</Label>
+
+                        <TextBox Name="searchTextBox" 
+                                     Grid.Row="0" 
+                                     Grid.Column="1"
+                                     Margin="5,0,5,0"
+                                     Height="40"
+                                     TextChanged="searchTextBox_TextChanged"  
+                                     FontSize="20" ></TextBox>
+
+                        <Button Name="SearchRecipsButton" 
+                                    Grid.Row="0" Grid.Column="2" 
+                                     Margin="5,0,5,0"
+                                     Height="40"  
+                                 Click="Filter"
+                                >OK</Button>
+
+                        <ComboBox Name="CategoriesComboBox"
+                                Grid.Row="1" Grid.Column="0"
+                                  Height="30"
+                                  Margin="5,0,5,0"
+                              	SelectionChanged="Categories_SelectionChanged"
+                                Loaded="CategoriesComboBox_Loaded" 
+                              	>
                         </ComboBox>
-                    </Grid>
-                    <Grid Grid.Row="2" Grid.Column="1">
+
+                        <ComboBox Name="RatingsComboBox"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  Height="30"
+                                  Margin="5,0,5,0"
+                                  SelectionChanged="Ratings_SelectionChanged"
+                              	  Loaded="RatingsComboBox_Loaded"  
+                        ></ComboBox>
+
                         <ComboBox Name="ComboBoxKcal"
-                              	SelectionChanged="Kcal_SelectionChanged"
-                              	Loaded="ComboBox_LoadedKcal"
-                              	Margin="191,-10,538,10"
-                              	Width="170">
+                                  Grid.Row="1" 
+                                  Grid.Column="2"
+                                  Height="30"
+                                  Margin="5,0,5,0"                               
+                              	SelectionChanged="Calories_SelectionChanged"
+                              	Loaded="CaloriesComboBox_Loaded"                           	
+                              	>
                         </ComboBox>
-                    </Grid>
-                    <Grid Grid.Row="3">
-                        <ListBox Name="searchRecips" Margin="193,33,157,35" >
+
+                        <ListBox Name="searchRecips"
+                                     Grid.Row="2" 
+                                     Grid.RowSpan="2" 
+                                     Grid.Column="0" 
+                                     Grid.ColumnSpan="3" 
+                                     Margin="10">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10">
@@ -465,18 +511,113 @@
                                                 <RowDefinition></RowDefinition>
                                             </Grid.RowDefinitions>
                                             <Image Grid.Column="0" Grid.RowSpan="2" MaxHeight="64"
-                                                   Source="{Binding Path=imagePath}">
+                                                   Source="{Binding Path=ImagePath}">
                                             </Image>
-                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=title}"></TextBlock>
-                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=description}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=Title}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=Description}"></TextBlock>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
+
+
+
+                    </Grid>
+
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center">
+
+                    </GridSplitter>
+
+                    <Grid Name="RecipesInfo"  Grid.Column="2" ShowGridLines="True"
+                  DataContext="{Binding ElementName=searchRecips, Path=SelectedItem}">
+                        <Grid.Resources>
+
+                            <local:ImagePathConverter x:Key="ImagePathConverter"/>
+                        </Grid.Resources>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+
+                        </Grid.RowDefinitions>
+
+
+                        <Label Margin="3">Nazwa</Label>
+                        <Label Grid.Row="1" Margin="3">Opis</Label>
+
+                        <TextBox Name="RecipeTitle_TextBox"
+                                 IsEnabled="False" Grid.Column="2" Grid.Row="0" Margin="3" Text="{Binding Path=Title}"/>
+                        <TextBox Name="Description_TextBox" Height="60"
+                                 IsEnabled="False" Grid.Column="2" Grid.Row="1"  Margin="3" Text="{Binding Path=Description}"/>
+
+                        <GroupBox  Grid.ColumnSpan="2" Grid.Row="2" Padding="5" Margin="5">
+
+                            <Grid Name="infoGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Margin="3">Kalorie</Label>
+                                <Label Margin="3" Grid.Row="1">Kategoria</Label>
+                                <Label Margin="3" Grid.Row="2">Ocena</Label>
+
+
+
+                                <TextBox Name="Category_TextBox"  
+                                         Margin="3" Grid.Column="1" 
+                                         Text="{Binding Path=Calories}"
+                                         IsEnabled="False"
+                                         />
+
+                                <ComboBox Name="Category_ComboBox" 
+                                  Margin="3" 
+                                  IsEnabled="False"
+                                  Grid.Column="1" 
+                                  Grid.Row="1"
+                                  SelectedValuePath="Category"
+                                  SelectedValue="{Binding Category}"
+                                  DisplayMemberPath="Category"                                  
+                                  />
+
+                                <Slider Name="ratingSlider" 
+                                Margin="3" 
+                                IsEnabled="False"
+                                Grid.Column="1" 
+                                Grid.Row="2"
+                                Minimum="0"
+                                Maximum="5"
+                                TickFrequency="1"
+                                TickPlacement="BottomRight"
+                                Value="{Binding Path=Rating}"
+                                />
+
+                            </Grid>
+                        </GroupBox>
+                        <Button Name="deleteBut"  Grid.ColumnSpan="2" Grid.Row="3" Height="50px">
+                            Usuń
+                        </Button>
+
+                        <Image Grid.ColumnSpan="2" Grid.Row="4" MaxHeight="120"
+                               Stretch="Uniform" HorizontalAlignment="Center"
+                               Source="{Binding Path=ImagePath, Converter={StaticResource ImagePathConverter}}"
+                            />
                     </Grid>
                 </Grid>
-
             </TabItem>
         </TabControl>
     </Grid>

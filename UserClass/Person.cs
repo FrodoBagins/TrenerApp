@@ -24,55 +24,55 @@ namespace UserClass
         public string Name
         {
             get { return name; }
-            set { name = value; OnPropertyChanged("NameAndEmail"); }
+            set { name = value;}
         }
 
         public string SecondName
         {
             get { return secondname; }
-            set { secondname = value; OnPropertyChanged("NameAndEmail"); }
+            set { secondname = value;}
         }
 
         public string Email
         {
             get { return email; }
-            set { email = value; OnPropertyChanged("NameAndEmail"); }
+            set { email = value; }
         }
 
         public double Weight
         {
             get { return weight; }
-            set { weight = value; OnPropertyChanged("NameAndEmail"); }
+            set { weight = value;  }
         }
 
         public double WeightToLose
         {
             get { return weight_lose; }
-            set { weight_lose = value; OnPropertyChanged("NameAndEmail"); }
+            set { weight_lose = value;  }
         }
 
         public double WeightLeft
         {
             get { return weight_left; }
-            set { weight_left = value; OnPropertyChanged("NameAndEmail"); }
+            set { weight_left = value;  }
         }
 
         public double Height
         {
             get { return height; }
-            set { height = value; OnPropertyChanged("NameAndEmail"); }
+            set { height = value;  }
         }
 
         public double BMI
         {
             get { return bmi; }
-            set { bmi = value; OnPropertyChanged("NameAndEmail"); }
+            set { bmi = value;  }
         }
 
         public int Age
         {
             get { return age; }
-            set { age = value; OnPropertyChanged("NameAndEmail"); }
+            set { age = value; }
         }
 
         public Person() { }
@@ -89,19 +89,19 @@ namespace UserClass
             Age = age;
         }
 
-        public string NameAndEmail
-        {
-            get
-            {
-                return Name + " " + SecondName;
-            }
-        }
+    //    public string NameAndEmail
+    //    {
+   //         get
+   //         {
+    //            return Name + " " + SecondName;
+   //         }
+   //     }
 
 
-        public override string ToString()
-        {
-            return Name + " " + SecondName + " (" + Email + ")";
-        }
+    //    public override string ToString()
+    //    {
+     //       return Name + " " + SecondName + " (" + Email + ")";
+    //    }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

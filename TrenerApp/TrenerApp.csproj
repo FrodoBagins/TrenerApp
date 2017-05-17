@@ -57,7 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="BmiCommands.cs" />
     <Compile Include="HelperClass.cs" />
-    <Compile Include="Recipe.cs" />
+    <Compile Include="ImagePathConverter.cs" />
+    <Compile Include="Recipes.cs" />
     <Compile Include="WeightWindow.xaml.cs">
       <DependentUpon>WeightWindow.xaml</DependentUpon>
     </Compile>
@@ -103,7 +104,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\callendar.png" />
@@ -153,6 +156,10 @@
     <Resource Include="images\schabowe.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RecipeClass\RecipeClass.csproj">
+      <Project>{e62147af-51c4-404d-a986-7f9928e6d551}</Project>
+      <Name>RecipeClass</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UserClass\UserClass.csproj">
       <Project>{44B793FE-84C8-46F4-85C5-DD8814233DEB}</Project>
       <Name>UserClass</Name>

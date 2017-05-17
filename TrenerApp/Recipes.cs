@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TrenerApp
 {
-    public class Recipe
+    public class Recipes
     {
         //tymczasowe to wszystko hue hue hue
         public string title { get; set; }
