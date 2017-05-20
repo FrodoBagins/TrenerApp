@@ -40,8 +40,9 @@ namespace TrenerApp
             searchRecips.ItemsSource = RecipeData.Instance.Recipes;
             Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource) as CollectionView;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(recipes.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
+         //   view.Filter = RatingsFilter;
         }
 
 
@@ -127,10 +128,11 @@ namespace TrenerApp
             List<string> data = new List<string>();
             data.Add("");
             data.Add("Kaloryczność");
-            data.Add("0-100");
-            data.Add("101-200");
-            data.Add("201-300");
-            data.Add("301-400");
+            data.Add("0");
+            data.Add("100");
+            data.Add("200");
+            data.Add("300");
+            data.Add("400");
 
             var comboBox = sender as ComboBox;
 
@@ -151,7 +153,6 @@ namespace TrenerApp
             // ... A List.
             List<string> data = new List<string>();
             data.Add("");
-            data.Add("Ocena");
             data.Add("0");
             data.Add("1");
             data.Add("2");
@@ -163,7 +164,7 @@ namespace TrenerApp
 
             comboBox.ItemsSource = data;
 
-            comboBox.SelectedIndex = 0;
+         //   comboBox.SelectedIndex = 0;
         }
 
         private void Ratings_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -171,6 +172,26 @@ namespace TrenerApp
             var comboBox = sender as ComboBox;
             string value = comboBox.SelectedItem as string;
             this.Title = "Ocena dania: " + value;
+
+
+       /*     if (RatingsComboBox.Text.Equals("Ocena"))
+            {
+                View.Filter = null;
+            }
+            else
+            { 
+                int minimumPrice = int.Parse(value);
+                View.Filter = delegate (object item)
+                {
+                    Recipe product = item as Recipe;
+
+                    if (product != null)
+                    {
+                        return (product.Rating == minimumPrice);
+                    }
+                    return false;
+                };
+            }  */
         }
 
 
@@ -187,20 +208,49 @@ namespace TrenerApp
         }
 
 
-    //    private List<object> recipe = new List<object>();
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
+        }
+
+
+
+        private bool RatingsFilter(object recipe)
+        {
+            if (string.IsNullOrEmpty(RatingsComboBox.Text))
+            {
+                return true;
+            }
+            else
+            {
+
+                return ((recipe as Recipe).Rating == int.Parse(RatingsComboBox.Text));
+            }
+
+        }
+
+
 
         private ListCollectionView View
         {
             get
             {
-               return (ListCollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource);
+                return (ListCollectionView)CollectionViewSource.GetDefaultView(recipes.ItemsSource);
             }
         }
 
         private void Filter(object sender, RoutedEventArgs e)
         {
-            int minimumPrice = int.Parse(RatingsComboBox.Text);
-          
+/*
+            if (RatingsComboBox.Text.Equals("Ocena"))
+            {
+                View.Filter = null;
+
+            }
+            else
+            {
+
+                int minimumPrice = int.Parse(RatingsComboBox.Text);
                 View.Filter = delegate (object item)
                 {
                     Recipe product = item as Recipe;
@@ -211,16 +261,12 @@ namespace TrenerApp
                     }
                     return false;
                 };
-            
+            }*/
+
         }
 
 
 
-
-        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
-        }
 
         private void Change_Thumbnail(object sender, RoutedEventArgs e)
         {
@@ -258,10 +304,13 @@ namespace TrenerApp
                 osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
                 BMI_StatusBar.Value = osoba.WeightLeft;
             }
+
             catch (Exception w)
             {
                 MessageBoxResult result = MessageBox.Show("Wprowadź poprawną wagę", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
+
         }
     }
 }
+
