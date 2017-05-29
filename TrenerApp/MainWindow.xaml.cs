@@ -82,7 +82,6 @@ namespace TrenerApp
             //}
         }
 
-
         private void BMIUpdateClick(object sender, EventArgs e)
         {
             Person osoba = new Person();
@@ -94,7 +93,6 @@ namespace TrenerApp
             dlg.Owner = this;
             dlg.Show();
         }
-
 
         private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -194,7 +192,6 @@ namespace TrenerApp
             }  */
         }
 
-
         private bool RecipesFilter(object recipe)
         {
             if (string.IsNullOrEmpty(searchTextBox.Text))
@@ -207,13 +204,10 @@ namespace TrenerApp
             }
         }
 
-
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
         }
-
-
 
         private bool RatingsFilter(object recipe)
         {
@@ -228,8 +222,6 @@ namespace TrenerApp
             }
 
         }
-
-
 
         private ListCollectionView View
         {
@@ -264,9 +256,6 @@ namespace TrenerApp
             }*/
 
         }
-
-
-
 
         private void Change_Thumbnail(object sender, RoutedEventArgs e)
         {
