@@ -21,12 +21,6 @@ namespace RecipeClass
         {
             RecipeReader();
 
-
-         //   recipes.Add(new Recipe("Schabowy", "Mniam mniam pyszne mięsko.", "images/schabowe", "Dania mięsne", 250.00, 2));
-         //   recipes.Add(new Recipe("Bigos szlachetny", "Kunszt i tradycja.", "images/bigos", "Dania mięsne", 350.00, 5));
-        //    recipes.Add(new Recipe("Ryż z warzywami", "Danie bardzo ostre.", "images/Rice", "Dania wegetariańskie", 250.00, 3));
-         //   recipes.Add(new Recipe("Ryba pieczona", "Rybka lubi pływać.", "images/bigos", "Dania wegetariańskie", 250.00, 2));
-        //    recipes.Add(new Recipe("Zupa nic", "Staropolska zupa nic.", "images/zupanic", "Zupa", 100.00, 1));
         }
 
 
@@ -63,7 +57,6 @@ namespace RecipeClass
                 recipes.Add(new RecipeClass.Recipe(title, description, imagePath, category, calories2, rating2));
 
             }
-
         }
 
 
