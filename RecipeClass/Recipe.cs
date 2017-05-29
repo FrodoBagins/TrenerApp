@@ -15,7 +15,7 @@ namespace RecipeClass
         public string description;
         public string imagePath;
         public string category;
-        public double calories;
+        public int calories;
         public int rating;
 
         public string Title
@@ -44,7 +44,7 @@ namespace RecipeClass
             set { category = value; }
         }
 
-        public double Calories
+        public int Calories
         {
             get { return calories; }
             set { calories = value; }
@@ -58,7 +58,7 @@ namespace RecipeClass
 
 
         public Recipe() { }
-        public Recipe(string title, string description,string imagePath, string category,double calories, int rating )
+        public Recipe(string title, string description,string imagePath, string category,int calories, int rating )
         {
             Title = title;
             Description = description;

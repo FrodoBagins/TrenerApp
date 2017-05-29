@@ -1,0 +1,80 @@
+﻿<recipes>
+  <recipe>
+    <title>Schabowy</title>
+    <description>
+      Mniam mniam pyszne mięsko
+    </description>
+    <imagePath>
+      images/schabowe
+    </imagePath>
+    <category>
+      Dania mięsne
+    </category>
+    <calories>250</calories>
+    <rating>2</rating>
+  </recipe>
+  <recipe>
+    <title>
+      Bigos
+    </title>
+    <description>
+      Kunszt i tradycja
+    </description>
+    <imagePath>
+      images/bigos
+    </imagePath>
+    <category>
+      Dania mięsne
+    </category>
+    <calories>350</calories>
+    <rating>5</rating>
+  </recipe>
+  <recipe>
+    <title>
+      Ryż z warzywami
+    </title>
+    <description>
+      Danie bardzo ostre
+    </description>
+    <imagePath>
+      images/Rice
+    </imagePath>
+    <category>
+     Dania wegetariańskie
+    </category>
+    <calories>250</calories>
+    <rating>3</rating>
+  </recipe>
+  <recipe>
+    <title>
+      Ryba pieczona
+    </title>
+    <description>
+      Rybka lubi pływać
+    </description>
+    <imagePath>
+      images/bigos
+    </imagePath>
+    <category>
+     Dania wegetariańskie
+    </category>
+    <calories>250</calories>
+    <rating>2</rating>
+  </recipe>
+  <recipe>
+    <title>
+     Zupa nic
+    </title>
+    <description>
+      Staropolska zupa nic
+    </description>
+    <imagePath>
+      images/zupanic
+    </imagePath>
+    <category>
+     Zupa
+    </category>
+    <calories>100</calories>
+    <rating>3</rating>
+  </recipe>
+</recipes>
