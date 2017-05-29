@@ -23,8 +23,6 @@ namespace RecipeClass
 
         }
 
-
-
         private void RecipeReader()
         {
             IEnumerable<XElement> recipesData = xelement.Elements();
@@ -58,10 +56,6 @@ namespace RecipeClass
 
             }
         }
-
-
-
-
 
         private static RecipeData singleton = null;
 

@@ -39,10 +39,17 @@ namespace TrenerApp
             recipes.ItemsSource = RecipeData.Instance.Recipes;
             searchRecips.ItemsSource = RecipeData.Instance.Recipes;
             Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
+            CategoriesComboBox.ItemsSource = CategoryData.Instance.Categories;
+           // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(recipes.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
-         //   view.Filter = RatingsFilter;
+            //view.Filter = RecipesFilterByCategory;
+
+            //.Filter = RecipesFilterByCategory;
+
+            //view.Filter = RecipesFilterByCategory;
+            //   view.Filter = RatingsFilter;
         }
 
 
@@ -94,43 +101,42 @@ namespace TrenerApp
             dlg.Show();
         }
 
-        private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            // ... A List.
-            List<string> data = new List<string>();
-            data.Add("");
-            data.Add("Wszystkie typy");
-            data.Add("Dania wegetariańskie");
-            data.Add("Dania mięsne");
-            data.Add("Desery");
-            data.Add("Sałatki");
+        //private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    // ... A List.
+        //    List<string> data = new List<string>();
+        //    data.Add("Wszystkie typy");
+        //    data.Add("Dania wegetariańskie");
+        //    data.Add("Dania mięsne");
+        //    data.Add("Desery");
+        //    data.Add("Sałatki");
 
-            var comboBox = sender as ComboBox;
+        //    var comboBox = sender as ComboBox;
 
-            comboBox.ItemsSource = data;
+        //    comboBox.ItemsSource = data;
 
-            comboBox.SelectedIndex = 0;
-        }
+        //    comboBox.SelectedIndex = 0;
+        //}
 
         private void Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
 
-            string value = comboBox.SelectedItem as string;
-            this.Title = "Posiłki: " + value;
+            string name = comboBox.SelectedValue as string;
+            this.Title = "Posiłki: " + name;
         }
 
         private void CaloriesComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             // ... A List.
             List<string> data = new List<string>();
-            data.Add("");
             data.Add("Kaloryczność");
-            data.Add("0");
-            data.Add("100");
-            data.Add("200");
-            data.Add("300");
-            data.Add("400");
+            data.Add("0-100");
+            data.Add("101-200");
+            data.Add("201-300");
+            data.Add("301-400");
+            data.Add("401-500");
+            data.Add("500<...");
 
             var comboBox = sender as ComboBox;
 
@@ -204,7 +210,26 @@ namespace TrenerApp
             }
         }
 
+        private bool RecipesFilterByCategory(object recipe)
+        {
+            searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
+            if (string.IsNullOrEmpty(searchTextBox.Text))
+            {
+                return true;
+            }
+            else
+            {
+                
+                return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+        }
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
+        }
+
+        private void CategoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
         }
@@ -220,7 +245,6 @@ namespace TrenerApp
 
                 return ((recipe as Recipe).Rating == int.Parse(RatingsComboBox.Text));
             }
-
         }
 
         private ListCollectionView View
@@ -298,7 +322,6 @@ namespace TrenerApp
             {
                 MessageBoxResult result = MessageBox.Show("Wprowadź poprawną wagę", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
-
         }
     }
 }

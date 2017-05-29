@@ -9,8 +9,6 @@ namespace RecipeClass
 {
     public class Recipe : IDataErrorInfo
     {
-
-
         public string title;
         public string description;
         public string imagePath;
@@ -24,13 +22,11 @@ namespace RecipeClass
             set { title = value; }
         }
 
-
         public string Description
         {
             get { return description; }
             set { description = value; }
         }
-
 
         public string ImagePath
         {
@@ -67,11 +63,6 @@ namespace RecipeClass
             Calories = calories;
             Rating = rating;
         }
-
-
-
-
-
 
         public string Error
         {
