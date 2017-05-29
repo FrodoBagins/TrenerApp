@@ -35,6 +35,7 @@ namespace RecipeClass
             string category;
             string calories;
             string rating;
+            string id;
 
 
             foreach (var recipe in recipesData)
@@ -47,14 +48,15 @@ namespace RecipeClass
                 category = recipe.Element("category").Value;
                 calories = recipe.Element("calories").Value;
                 rating = recipe.Element("rating").Value;
+                id = recipe.Element("id").Value;
 
-
+                int id2 = int.Parse(id);
 
                 int rating2 = int.Parse(rating);
 
                 int calories2 = int.Parse(calories);
 
-                recipes.Add(new RecipeClass.Recipe(title, description, imagePath, category, calories2, rating2));
+                recipes.Add(new RecipeClass.Recipe(id2 ,title, description, imagePath, category, calories2, rating2));
 
             }
         }

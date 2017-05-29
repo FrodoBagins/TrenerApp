@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Xml.Linq;
 using UserClass;
 using RecipeClass;
 
@@ -30,17 +31,18 @@ namespace TrenerApp
     {
         //Person osoba;
         Person osoba = new Person();
+        Recipe recipe = new Recipe();
         // public ObservableCollection<Recipe> recipesList;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            recipes.ItemsSource = RecipeData.Instance.Recipes;
+            calendarRecipesList.ItemsSource = RecipeData.Instance.Recipes;
             searchRecips.ItemsSource = RecipeData.Instance.Recipes;
             Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(recipes.ItemsSource) as CollectionView;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
          //   view.Filter = RatingsFilter;
         }
@@ -72,14 +74,47 @@ namespace TrenerApp
         {
             var picker = sender as DatePicker;
             DateTime? date = picker.SelectedDate;
-            //if (date == null)
-            //{
-            //    this.Title = "Brak daty.";
-            //}
-            //else
-            //{
-            //    this.Title = date.Value.ToShortDateString();
-            //}
+
+            XElement xelement = XElement.Load("calendar.xml");
+
+            IEnumerable<XElement> calendar = xelement.Elements();
+            // Read the entire XML
+            foreach (var day in calendar)
+            {
+                //  Console.WriteLine(day);
+                Collection<Recipe> recipesList = new Collection<Recipe>();
+
+                if (day.Element("day").Value.Equals(date.Value.ToShortDateString()))
+                {
+                    Console.WriteLine("Trafiony");
+
+                    Console.WriteLine(day);
+
+                    Console.WriteLine(day.Elements("recipes"));
+
+
+
+                    foreach (XElement ee in day.Descendants("recipeId"))
+                    {
+
+                        //  Console.WriteLine("dupa"+ee.Value);
+                        string tempValue = ee.Value;
+
+
+                     //   Console.Write(day2.Element("recipeId").Value);
+
+                          //        tempValue = day2.Element("recipeId").Value;
+
+
+                             recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
+
+                    }
+
+                    calendarRecipesList.ItemsSource = recipesList;
+
+                }            
+            }
+
         }
 
         private void BMIUpdateClick(object sender, EventArgs e)
@@ -227,7 +262,7 @@ namespace TrenerApp
         {
             get
             {
-                return (ListCollectionView)CollectionViewSource.GetDefaultView(recipes.ItemsSource);
+                return (ListCollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource);
             }
         }
 

@@ -67,8 +67,7 @@
                         BorderBrush="Black" 
                         Margin="30"
                         BorderThickness="1,1,1,1" 
-                        CornerRadius="30,30,30,30"
-                                  
+                        CornerRadius="30,30,30,30"                              
                     >
                         <Grid Name="Statistics_Grid"
                         ShowGridLines="False"
@@ -114,8 +113,8 @@
                                    Grid.Column="0" Grid.ColumnSpan="3"
                                    Grid.Row="1"
                                      Minimum="0"
-                                     Maximum="{Binding Path=WeightToLose,UpdateSourceTrigger=PropertyChanged}"
-                                     Value="{Binding Path=WeightLeft,UpdateSourceTrigger=PropertyChanged}"
+                                     Maximum="{Binding Path=WeightLeft,UpdateSourceTrigger=PropertyChanged}"
+                                     Value="{Binding Path=WeightLeft2,UpdateSourceTrigger=PropertyChanged}"
                                     
                                      Margin="10,10,10,10"
                                    >
@@ -377,6 +376,7 @@
                     </Grid.RowDefinitions>-->
 
                     <DatePicker Grid.Column="0" HorizontalAlignment="Center"
+                                Name="Calendar"
                                 Margin="0,30,0,0"
                                 FontSize="20"
                                 Width="185"
@@ -384,7 +384,7 @@
                                 SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
                     <Grid Grid.Column="1" Margin="30">
-                        <ListBox Name="recipes" >
+                        <ListBox Name="calendarRecipesList" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10">

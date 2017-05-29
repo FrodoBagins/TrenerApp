@@ -10,13 +10,19 @@ namespace RecipeClass
     public class Recipe : IDataErrorInfo
     {
 
-
+        public int id;
         public string title;
         public string description;
         public string imagePath;
         public string category;
         public int calories;
         public int rating;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public string Title
         {
@@ -58,8 +64,9 @@ namespace RecipeClass
 
 
         public Recipe() { }
-        public Recipe(string title, string description,string imagePath, string category,int calories, int rating )
+        public Recipe(int id,string title, string description,string imagePath, string category,int calories, int rating )
         {
+            Id = id;
             Title = title;
             Description = description;
             ImagePath = imagePath + ".jpg";
