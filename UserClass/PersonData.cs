@@ -9,12 +9,11 @@ namespace UserClass
 {
     public class PersonData
     {
-
         private Collection<Person> data = new ObservableCollection<Person>();
 
         private PersonData()
         {
-            data.Add(new Person("Jan", "Kowalski", "jankowalski@gmail.com", 100.0, 95.00,195.5, 25));
+            data.Add(new Person("Jan", "Kowalski", "jankowalski@gmail.com", 100.0, 95.00, 195.5, 25));
         }
 
         private static PersonData singleton = null;

@@ -9,9 +9,13 @@
         Loaded="Window_Loaded"
         Title="WeightWindow" Height="150" Width="200">
     <Window.CommandBindings>
-        <CommandBinding Command="app:BmiCommands.CountBMI" Executed="CountBMI_Executed" CanExecute="CountBMI_CanExecute"></CommandBinding>
+        <CommandBinding Command="app:BmiCommands.CountBMI" Executed="CountBMI_Executed"
+                        CanExecute="CountBMI_CanExecute"></CommandBinding>
     </Window.CommandBindings>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="images/profle_background.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
 
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -20,8 +24,9 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Name="GiveWeightLabel" Content="Podaj swoją wage:" Margin="5,5,5,0"></Label>
-
-        <TextBox Grid.Row="1" Name="GiveWeightTextBox" Text="{Binding Path=Weight, UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" Width="100" Height="20"></TextBox>
+        <TextBox Grid.Row="1" Name="GiveWeightTextBox"
+                 Text="{Binding Path=Weight, UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"
+                 Width="100" Height="20"></TextBox>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -31,16 +36,18 @@
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
 
+            <Border Grid.Column="0" BorderThickness="3" Width="85" Height="28"
+                    BorderBrush="FloralWhite" Margin="5" CornerRadius="5">
+                <Button Name="AccetpWeightButton" Width="79" Content="Akceptuj"
+                        Click="Accept" Background="PeachPuff"
+                    Command="app:BmiCommands.CountBMI"/>
+            </Border>
 
-            <Button Grid.Column="0" Name="AccetpWeightButton" Content="Akceptuj"
-                    Click="Accept"
-                    Command="app:BmiCommands.CountBMI"
-                    ></Button>
-            <Button Click="Delete" Grid.Column="1" Name="DeleteWeightButton" Content="Anuluj"></Button>
-            
-            
+            <Border Grid.Column="1" BorderThickness="3" Width="85" Height="28"
+                    BorderBrush="FloralWhite" Margin="5" CornerRadius="5">
+                <Button Click="Delete" Width="79" Background="PeachPuff"
+                        Name="DeleteWeightButton" Content="Anuluj"/>
+            </Border>
         </Grid>
-        
-        
     </Grid>
 </Window>

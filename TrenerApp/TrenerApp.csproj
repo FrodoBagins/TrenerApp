@@ -185,6 +185,13 @@
     <Resource Include="recipes.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\food.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\motivation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="images\guy.png" />
     <Content Include="music.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

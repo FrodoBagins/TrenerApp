@@ -18,23 +18,30 @@
             <GradientStop Color="#2747bc" Offset="0.567"/>
         </LinearGradientBrush>
     </Window.Background>
+
     <Grid>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="67*"/>
             <ColumnDefinition Width="429*"/>
         </Grid.ColumnDefinitions>
-        <TabControl TabStripPlacement="Left" Margin="10" BorderBrush="White" Grid.ColumnSpan="2">
+
+        <TabControl Name="myTabControl" TabStripPlacement="Left" Margin="10" BorderBrush="White" Grid.ColumnSpan="2">
+
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="TabItem">
-                                <Border Name="Border"  CornerRadius="5,5,5,5" Margin="0,0,10,10" BorderBrush="Navy" BorderThickness="0">
+                                <Border Name="Border" 
+                                        CornerRadius="5,5,5,5"
+                                        Margin="0,0,10,10"
+                                        BorderBrush="Navy"
+                                        BorderThickness="0">
                                     <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        />
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"
+                                                      ContentSource="Header"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
@@ -49,8 +56,8 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            <TabItem Name="MainTab" 
-                     Height="100">
+
+            <TabItem Name="MainTab" Height="100">
                 <TabItem.Header>
                     <Image Width="50" Source="images/home.png"/>
                 </TabItem.Header>
@@ -59,32 +66,35 @@
                     <Grid.Background>
                         <ImageBrush ImageSource="images/profle_background.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
+
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+
                     <Border Background="Gray" 
                         BorderBrush="Black" 
                         Margin="30"
                         BorderThickness="1,1,1,1" 
-                        CornerRadius="30,30,30,30"                              
-                    >
+                        CornerRadius="30,30,30,30">
+
                         <Grid Name="Statistics_Grid"
                         ShowGridLines="False"
                           Margin="10" 
-                          Background="Transparent"                         
-                          >
+                          Background="Transparent">
 
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -98,8 +108,7 @@
                                Foreground="White"
                                FontSize="20"
                                Margin="6,0,0,0"
-                               VerticalContentAlignment="Center"
-                               >
+                               VerticalContentAlignment="Center">
                             </Label>
 
                             <Label Name="BMI_Value_Label"
@@ -109,10 +118,8 @@
                                Foreground="White"
                                FontSize="20"
                                HorizontalContentAlignment="Center"
-                               VerticalContentAlignment="Center"
-                               >
+                               VerticalContentAlignment="Center">
                             </Label>
-
 
                             <ProgressBar Name="BMI_StatusBar"
                                    Grid.Column="0" Grid.ColumnSpan="3"
@@ -120,10 +127,7 @@
                                      Minimum="0"
                                      Maximum="{Binding Path=WeightLeft,UpdateSourceTrigger=PropertyChanged}"
                                      Value="{Binding Path=WeightLeft2,UpdateSourceTrigger=PropertyChanged}"
-                                    
-                                     Margin="10,10,10,10"
-                                   >
-
+                                     Margin="10,10,10,10">
                             </ProgressBar>
 
                             <TextBlock Name="BMI_Value_TextBlock"
@@ -134,57 +138,46 @@
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Text="{Binding Path=WeightToLose,UpdateSourceTrigger=PropertyChanged}">
-
                             </TextBlock>
 
-
-                            <Button Name="BMI_Update_Button"
-                                Grid.Column="0" Grid.ColumnSpan="3"
-                                Grid.Row="2"
-                                Height="40"
-                                Width="100"
-                                FontSize="20"
-                                Foreground="White"
-                                Click="BMIUpdateClick"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                >
-                                <Button.Background>
-                                    <LinearGradientBrush>
-                                        <GradientStop Color="ORange" Offset="0"/>
-                                        <GradientStop Color="#2747bc" Offset="1"/>
-                                    </LinearGradientBrush>
-
-                                </Button.Background>
-                                Aktualizuj
-                            </Button>
-
-
+                            <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" BorderThickness="3"
+                                    Width="153" Height="42" BorderBrush="FloralWhite"
+                                    Margin="5" CornerRadius="5" HorizontalAlignment="Center">
+                                <Button Name="BMI_Update_Button"
+                                        Height="36"
+                                        Width="147"
+                                        FontSize="20"
+                                        Background="PeachPuff"
+                                        Click="BMIUpdateClick"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                    Aktualizuj
+                                </Button>
+                            </Border>
                         </Grid>
-
                     </Border>
 
-                    <Border Background="Gray" 
-                          Grid.Row="0" 
-                          Grid.Column="1" 
-                        BorderBrush="Black" 
-                        Margin="30"
-                        BorderThickness="1,1,1,1" 
-                        CornerRadius="30,30,30,30"
-                                  
-                    >
+                    <Border Background="Gray"
+                            Grid.Row="0" 
+                            Grid.Column="1"
+                            BorderBrush="Black"
+                            Margin="30"
+                            BorderThickness="1,1,1,1"
+                            CornerRadius="30,30,30,30">
 
                         <Grid Name="CaloriesCounterGrid"
-                        ShowGridLines="False"
-                          Grid.Row="0" 
-                          Grid.Column="1" 
-                          Margin="10" 
-                          Background="Transparent">
+                              ShowGridLines="False"
+                              Grid.Row="0"
+                              Grid.Column="1"
+                              Margin="10"
+                              Background="Transparent">
+
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -192,54 +185,58 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Name="CaloriesTextBlock"
-                            Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0"
-                               Foreground="White"
-                               FontSize="20">
-                            Pozostała ilość kalorii<LineBreak />
-                            do wykorzystania:
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="3"
+                                       Grid.Row="0"
+                                       Foreground="White"
+                                       FontSize="20">
+                                Pozostała ilość kalorii<LineBreak />
+                                do wykorzystania:
                             </TextBlock>
-
-
-
-
-
                         </Grid>
                     </Border>
 
                     <Border Background="Gray" 
-                          Grid.Row="0" 
-                          Grid.Column="2" 
-                        BorderBrush="Black" 
-                        Margin="30"
-                        BorderThickness="1,1,1,1" 
-                        CornerRadius="30,30,30,30"
-                                  
-                    >
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            BorderBrush="Black"
+                            Margin="30"
+                            BorderThickness="1,1,1,1"
+                            CornerRadius="30,30,30,30"
+                            >
                         <Grid Name="NewsFeedGrid"
-                        ShowGridLines="False"
-                          Grid.Row="0" 
-                          Grid.Column="3" 
-                          Margin="10" 
-                          Background="Transparent">
+                              ShowGridLines="False"
+                              Grid.Row="0"
+                              Grid.Column="3"
+                              Margin="10"
+                              Background="Transparent">
+
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
+
                         </Grid>
                     </Border>
 
-
                     <Grid Name="WorkoutsGrid"
-                        Grid.Row="1" Grid.ColumnSpan="3" Margin="10px" ShowGridLines="False" Background="Gray" Width="840">
+                          Grid.Row="1"
+                          Grid.ColumnSpan="3"
+                          Margin="10px"
+                          Background="Gray"
+                          Width="840">
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -249,53 +246,112 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Row="0" Grid.Column="0" Source="images/Wege.jpg"/>
-                        <Label Grid.Row="1" Grid.Column="0" Background="LightGreen" Content="Dania Wegetariańskie" FontSize="12" Padding="10"/>
 
-                        <Image Grid.Row="0" Grid.Column="1" Source="images/Rice.jpg"/>
-                        <Label Grid.Row="1" Grid.Column="1" Background="Red" Content="Dania z Ryżem" FontSize="12" Padding="10"  Foreground="White"/>
+                        <Button Grid.Row="0" Grid.Column="0" Height="auto" Width="auto" Click="WegeCategory_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="images/Wege.jpg"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="0" Background="LightGreen" Content="Wegetariańskie" FontSize="12" Padding="10"/>
 
-                        <Image Grid.Row="0" Grid.Column="2" Source="images/Fruits.jpg"/>
-                        <Label Grid.Row="1" Grid.Column="2" Background="Orange" Content="Owoce" FontSize="12" Padding="10"/>
+                        <Button Grid.Row="0" Grid.Column="1" Height="auto" Width="auto" Click="RiceCategory_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="images/Rice.jpg"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="1" Background="Red" Content="Dania z Ryżem"
+                               FontSize="12" Padding="10"  Foreground="White"/>
 
-                        <Image Grid.Row="0" Grid.Column="3" Source="images/Vegetables.jpg"/>
-                        <Label Grid.Row="1" Grid.Column="3" Background="Purple" Content="Warzywa" FontSize="12" Padding="10" Foreground="White"/>
+                        <Button Grid.Row="0" Grid.Column="2" Height="auto" Width="auto" Click="FruitCategory_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="images/Fruits.jpg"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="2" Background="Orange" Content="Owoce"
+                               FontSize="12" Padding="10"/>
 
-                        <Image Grid.Row="0" Grid.Column="4" Source="images/Fish.jpg"/>
-                        <Label Grid.Row="1" Grid.Column="4" Background="Yellow" Content="Dania z Rybami" FontSize="12" Padding="10"/>
+                        <Button Grid.Row="0" Grid.Column="3" Height="auto" Width="auto" Click="VegetableCategory_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="images/Vegetables.jpg"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="3" Background="Purple" Content="Warzywa"
+                               FontSize="12" Padding="10" Foreground="White"/>
 
-                        <Image Grid.Row="0" Grid.Column="5" Source="images/Smoothie.jpg"/>
-                        <Label Grid.Row="1" Grid.Column="5" Background="Blue" Content="Smoothie" FontSize="12" Padding="10" Foreground="White"/>
+                        <Button Grid.Row="0" Grid.Column="4" Height="auto" Width="auto" Click="FishCategory_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="images/Fish.jpg"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="4" Background="Yellow" Content="Dania z Rybami"
+                               FontSize="12" Padding="10"/>
 
-                        <Image Grid.Row="0" Grid.Column="6" Source="images/Granola.jpg"/>
-                        <Label Grid.Row="1" Grid.Column="6" Background="Turquoise" Content="Śniadania" FontSize="12" Padding="10" />
+                        <Button Grid.Row="0" Grid.Column="5" Height="auto" Width="auto" Click="SmoothieCategory_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="images/Smoothie.jpg"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="5" Background="Blue" Content="Smoothie"
+                               FontSize="12" Padding="10" Foreground="White"/>
+
+                        <Button Grid.Row="0" Grid.Column="6" Height="auto" Width="auto" Click="BreakfastCategory_Click">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Image Source="images/Granola.jpg"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Label Grid.Row="1" Grid.Column="6" Background="Turquoise" Content="Śniadania"
+                               FontSize="12" Padding="10" />
 
                     </Grid>
                 </Grid>
-
             </TabItem>
-            <TabItem Name="PersonalTab" 
-                     Height="100">
+
+            <TabItem Name="PersonalTab" Height="100">
                 <TabItem.Header>
                     <Image Width="50" Source="images/profile.png"/>
                 </TabItem.Header>
+
                 <Grid>
                     <Grid.Background>
                         <ImageBrush ImageSource="images/profle_background.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="220"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Image Name="thumbnail" Grid.Row="0" Grid.Column="0" Margin="0 15"  Source="images/womanthumbnail.png"/>
-                    <Button Grid.Row="1" Grid.Column="0" Width="180" Height="30" Click="Change_Thumbnail">Zmień</Button>
-                    <Grid Grid.Row="2" Grid.Column="0"   Margin="5">
+
+                    <Image Name="thumbnail" Grid.Row="0" Grid.Column="0" Margin="0 15" Stretch="Uniform" Source="images/guy.png"/>
+
+                    <Border Grid.Row="1" Grid.Column="0" BorderThickness="3" Width="106"
+                            Height="28" BorderBrush="FloralWhite" 
+                            Margin="5" CornerRadius="5" HorizontalAlignment="Center">
+                        <Button  Width="100" Height="22"
+                                 Background="PeachPuff" Click="Change_Thumbnail">Zmień</Button>
+                    </Border>
+                    <Grid Grid.Row="2" Grid.Column="0" Margin="5">
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition/>
@@ -306,63 +362,111 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" FontSize="15" FontWeight="Bold">Dane personalne</Label>
-                        <Label Grid.Row="1" Grid.Column="0" Margin="3">Imię</Label>
-                        <Label Grid.Row="2" Grid.Column="0" Margin="3">Nazwisko</Label>
-                        <Label Grid.Row="3" Grid.Column="0" Margin="3">Wiek [lata]</Label>
-                        <Label Grid.Row="4" Grid.Column="0" Margin="3">Waga [kg]</Label>
-                        <Label Grid.Row="5" Grid.Column="0" Margin="3">Wzrost [cm]</Label>
-                        <Label Grid.Row="6" Grid.Column="0" Margin="3">BMI</Label>
-                        <TextBox Name="tb_name" Grid.Row="1" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Name,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBox Name="tb_surname" Grid.Row="2" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=SecondName,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBox Name="tb_age" Grid.Row="3" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Age,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBox Name="tb_weight" Grid.Row="4" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Weight,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBox Name="tb_height" Grid.Row="5" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Height,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <Label Name="lb_BMI" Grid.Row="6" Grid.Column="1" Margin="3,3,0,3" FontWeight="Bold" Background="Transparent" HorizontalAlignment="Left" Width="115" Content="{Binding Path=BMI,UpdateSourceTrigger=PropertyChanged}"></Label>
-                        <Button Grid.Row="7" Grid.Column="1" Height="30" Click="Change_UserData" Margin="0,1,-41,1">Zapisz zmiany</Button>
+
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               FontSize="15"
+                               FontWeight="Bold">Dane personalne</Label>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical">
+                                <Label Margin="3">Imię</Label>
+                                <Label Margin="3">Nazwisko</Label>
+                                <Label Margin="3">Wiek [lata]</Label>
+                                <Label Margin="3">Waga [kg]</Label>
+                                <Label Margin="3">Wzrost [cm]</Label>
+                                <Label Margin="3">BMI</Label>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+                                <TextBox Height="20" Width="120" Margin="0,7,0,0" Name="tb_name"
+                                         FontWeight="Bold" Background="Transparent"
+                                         Text="{Binding Path=Name,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Height="20" Width="120" Margin="0,12,0,0" Name="tb_surname"
+                                         FontWeight="Bold" Background="Transparent"
+                                         Text="{Binding Path=SecondName,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Height="20" Width="120" Margin="0,12,0,0" Name="tb_age"
+                                         FontWeight="Bold" Background="Transparent"
+                                         Text="{Binding Path=Age,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Height="20" Width="120" Margin="0,12,0,0" Name="tb_weight"
+                                         FontWeight="Bold" Background="Transparent"
+                                         Text="{Binding Path=Weight,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <TextBox Height="20" Width="120" Margin="0,12,0,0" Name="tb_height"
+                                         FontWeight="Bold" Background="Transparent"
+                                         Text="{Binding Path=Height,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                <Label Height="25" Width="120" Margin="0,12,0,0" Name="lb_BMI"
+                                       FontWeight="Bold" Background="Transparent" HorizontalAlignment="Left"
+                                       Content="{Binding Path=BMI,UpdateSourceTrigger=PropertyChanged}"></Label>
+                                <Border Grid.Row="7" Grid.Column="1" BorderThickness="3" Width="106"
+                                        Height="28" BorderBrush="FloralWhite" CornerRadius="5">
+                                    <Button Background="PeachPuff" Width="100" Height="22"
+                                            Click="Change_UserData">Zapisz zmiany</Button>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
+
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
                         <Label FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center">Plany żywieniowe</Label>
-
-
                     </Grid>
+
                     <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Margin="5" VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold">Obecna waga</Label>
-                        <Label Grid.Row="1" Grid.Column="0" Margin="5" VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold">Mój cel</Label>
+
+                        <Label Grid.Row="0" Grid.Column="0" Margin="5"
+                               VerticalContentAlignment="Center" FontSize="20" FontWeight="Bold">Obecna waga</Label>
+                        <Label Grid.Row="1" Grid.Column="0" Margin="5"
+                               VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold">Mój cel</Label>
+
                         <Grid Grid.Row="0" Grid.Column="1" Margin="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Label Name="lb_weight" Grid.Column="0" Margin="5" HorizontalContentAlignment="Right"  FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center" Content="{Binding Path=Weight,UpdateSourceTrigger=PropertyChanged}"></Label>
-                            <Label Grid.Column="1" Margin="5" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center">kg</Label>
+
+                            <Label Name="lb_weight" Grid.Column="0" Margin="5" HorizontalContentAlignment="Right" 
+                                   FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center"
+                                   Content="{Binding Path=Weight,UpdateSourceTrigger=PropertyChanged}"></Label>
+                            <Label Grid.Column="1" Margin="5" HorizontalAlignment="Left" FontSize="20"
+                                   FontWeight="Bold" VerticalContentAlignment="Center">kg</Label>
                         </Grid>
+
                         <Grid Grid.Row="1" Grid.Column="1" Margin="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <TextBox Name="lb_weight_to_lose" Grid.Column="0" Margin="5" HorizontalContentAlignment="Right" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red" Background="Transparent" Text="{Binding Path=WeightToLose,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                            <Label Grid.Column="1" Margin="5" HorizontalAlignment="Left" FontSize="30" FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red">kg</Label>
+
+                            <TextBox Name="lb_weight_to_lose" Grid.Column="0" Margin="5"
+                                     HorizontalContentAlignment="Right"
+                                     FontSize="30" FontWeight="Bold"
+                                     VerticalContentAlignment="Center"
+                                     Foreground="Red"
+                                     Background="Transparent"
+                                     Text="{Binding Path=WeightToLose,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <Label Grid.Column="1" Margin="5" HorizontalAlignment="Left" FontSize="30"
+                                   FontWeight="Bold" VerticalContentAlignment="Center" Foreground="Red">kg</Label>
                         </Grid>
                     </Grid>
                 </Grid>
 
             </TabItem>
-            <TabItem Name="CalendarTab" 
-                     Height="100">
+            <TabItem Name="CalendarTab" Height="100">
                 <TabItem.Header>
                     <Image Width="50" Source="images/callendar.png"/>
                 </TabItem.Header>
@@ -376,8 +480,8 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <DatePicker Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"
@@ -388,13 +492,15 @@
                                 VerticalAlignment="Top"
                                 SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
-                    <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Grid.Row="1">
                         <Label Content="Wpisz adres email, aby wysłać jadłospis:"></Label>
-                        <TextBox x:Name="tbEmail" Width="100" Height="20" Margin="5" HorizontalAlignment="Left"></TextBox>
-                        <Border BorderThickness="3" Width="103" Height="28" BorderBrush="FloralWhite" Margin="5" CornerRadius="5" HorizontalAlignment="Left">
-                            <Button Width="95" Height="22" Content="Wyslij lol" Click="SendEmail_Click" Background="PeachPuff"></Button>
+                        <TextBox x:Name="tbEmail" Width="200" Height="20" Margin="5" HorizontalAlignment="Center"/>
+                        <Border BorderThickness="3" Width="103" Height="28" BorderBrush="FloralWhite"
+                                Margin="5" CornerRadius="5" HorizontalAlignment="Center">
+                            <Button Width="97" Height="22" Content="Wyslij"
+                                    Click="SendEmail_Click" Background="PeachPuff"></Button>
                         </Border>
-
                     </StackPanel>
 
                     <Grid Grid.Column="1" Grid.RowSpan="2" Margin="30">
@@ -414,8 +520,10 @@
                                             <Image Grid.Column="0" Grid.RowSpan="2" MaxHeight="64"
                                                    Source="{Binding Path=ImagePath}">
                                             </Image>
-                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=Title}"></TextBlock>
-                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=Description}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold"
+                                                       Text="{Binding Path=Title}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1"
+                                                       Text="{Binding Path=Description}"></TextBlock>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -424,10 +532,11 @@
                     </Grid>
                 </Grid>
             </TabItem>
+
             <TabItem Name="RecipesTab" 
                      Height="100">
                 <TabItem.Header>
-                    <Image Width="50" Source="images/Food.jpg"/>
+                    <Image Width="50" Source="images/food.png"/>
                 </TabItem.Header>
                 <Grid Margin="3">
                     <Grid.Background>
@@ -437,48 +546,47 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition />
-
                     </Grid.ColumnDefinitions>
 
                     <Grid Name="RecipesGrid" 
-                      Grid.Column="0"
-                      ShowGridLines="True">
+                      Grid.Column="0">
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="60"/>
-                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="40"/>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
+
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Label  Name="SearchRecipesLabel"
-                                Grid.Row="0" 
-                                Grid.Column="0" 
-                                Margin="5,0,5,0"
-                                Height="40"
-                                FontSize="20" >Szukaj:</Label>
+                        <Label Name="SearchRecipesLabel"
+                               Grid.Row="0" 
+                               Grid.Column="0" 
+                               Margin="5,0,5,0"
+                               Height="35"
+                               FontSize="18"
+                               FontWeight="Bold">Szukaj:</Label>
 
-                        <TextBox Name="searchTextBox" 
-                                     Grid.Row="1" 
-                                     Grid.Column="1"
-                                     Margin="5,0,5,0"
-                                     Height="40"
-                                     TextChanged="searchTextBox_TextChanged"  
-                                     FontSize="20" ></TextBox>
+                        <TextBox Name="searchTextBox"
+                                 Grid.Row="1"
+                                 Grid.Column="1"
+                                 Grid.ColumnSpan="2"
+                                 Margin="5,0,5,0"
+                                 Height="22"
+                                 TextChanged="searchTextBox_TextChanged"/>
 
                         <ComboBox Name="CategoriesComboBox"
                                   Grid.Row="1" Grid.Column="0"
-                                  Height="30"
+                                  Height="22"
                                   Margin="5,0,5,0"                                 
                                   IsEditable="True"
                                   SelectionChanged="Categories_SelectionChanged"
-                                  Loaded="CategoriesComboBox_Loaded">
-                        </ComboBox>
+                                  Loaded="CategoriesComboBox_Loaded"/>
 
                         <ListBox Name="searchRecips"
                                      Grid.Row="2" 
@@ -487,67 +595,73 @@
                                      Grid.ColumnSpan="3" 
                                      Margin="10">
                             <ListBox.ItemTemplate>
+
                                 <DataTemplate>
                                     <Border Margin="2" BorderThickness="1" BorderBrush="Black" CornerRadius="10">
                                         <Grid Margin="2">
+
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="70"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
+
                                             <Grid.RowDefinitions>
                                                 <RowDefinition></RowDefinition>
                                                 <RowDefinition></RowDefinition>
                                             </Grid.RowDefinitions>
+
                                             <Image Grid.Column="0" Grid.RowSpan="2" MaxHeight="64"
                                                    Source="{Binding Path=ImagePath}">
                                             </Image>
-                                            <TextBlock Grid.Column="1" FontSize="25" FontWeight="Bold" Text="{Binding Path=Title}"></TextBlock>
-                                            <TextBlock Grid.Column="1" FontSize="20" Grid.Row="1" Text="{Binding Path=Description}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="25"
+                                                       FontWeight="Bold" Text="{Binding Path=Title}"></TextBlock>
+                                            <TextBlock Grid.Column="1" FontSize="20"
+                                                       Grid.Row="1" Text="{Binding Path=Description}"></TextBlock>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-
                     </Grid>
 
                     <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center">
 
                     </GridSplitter>
 
-                    <Grid Name="RecipesInfo"  Grid.Column="2" ShowGridLines="True"
-                          
-                  DataContext="{Binding ElementName=searchRecips, Path=SelectedItem}">
+                    <Grid Name="RecipesInfo" Grid.Column="2"
+                          DataContext="{Binding ElementName=searchRecips, Path=SelectedItem}">
                         <Grid.Resources>
-
                             <local:ImagePathConverter x:Key="ImagePathConverter"/>
                         </Grid.Resources>
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition />
+                            <ColumnDefinition/>
+
                         </Grid.ColumnDefinitions>
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
-
                         </Grid.RowDefinitions>
-
 
                         <Label Margin="3">Nazwa</Label>
                         <Label Grid.Row="1" Margin="3">Opis</Label>
 
                         <TextBox Name="RecipeTitle_TextBox"
-                                 IsEnabled="False" Grid.Column="2" Grid.Row="0" Margin="3" Text="{Binding Path=Title}"/>
+                                 IsEnabled="False" Grid.Column="2" Grid.Row="0"
+                                 Margin="3" Text="{Binding Path=Title}"/>
                         <TextBox Name="Description_TextBox" Height="60"
-                                 IsEnabled="False" Grid.Column="2" Grid.Row="1"  Margin="3" Text="{Binding Path=Description}"/>
+                                 IsEnabled="False" Grid.Column="2" Grid.Row="1"
+                                 Margin="3" Text="{Binding Path=Description}"/>
 
-                        <GroupBox  Grid.ColumnSpan="2" Grid.Row="2" Padding="5" Margin="5">
+                        <GroupBox Grid.ColumnSpan="2" Grid.Row="2" Padding="5" Margin="5">
 
                             <Grid Name="infoGrid">
+
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
@@ -555,10 +669,12 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
+
                                 <Label Margin="3">Kalorie</Label>
                                 <Label Margin="3" Grid.Row="1">Kategoria</Label>
                                 <Label Margin="3" Grid.Row="2">Ocena</Label>
@@ -566,52 +682,64 @@
                                 <TextBox Name="Category_TextBox"  
                                          Margin="3" Grid.Column="1" 
                                          Text="{Binding Path=Calories}"
-                                         IsEnabled="False"
-                                         />
+                                         IsEnabled="False"/>
 
                                 <ComboBox Name="Category_ComboBox" 
-                                  Margin="3" 
-                                  IsEnabled="False"
-                                  Grid.Column="1" 
-                                  Grid.Row="1"
-                                  SelectedValuePath="Category"
-                                  SelectedValue="{Binding Category}"
-                                  DisplayMemberPath="Category"                                  
-                                  />
+                                          Margin="3" 
+                                          IsEnabled="False"
+                                          Grid.Column="1"
+                                          Grid.Row="1"
+                                          SelectedValuePath="Category"
+                                          SelectedValue="{Binding Category}"
+                                          DisplayMemberPath="Category"
+                                          />
 
-                                <Slider Name="ratingSlider" 
-                                Margin="3" 
-                                IsEnabled="False"
-                                Grid.Column="1" 
-                                Grid.Row="2"
-                                Minimum="0"
-                                Maximum="5"
-                                TickFrequency="1"
-                                TickPlacement="BottomRight"
-                                Value="{Binding Path=Rating}"
-                                />
-
+                                <Slider Name="ratingSlider"
+                                        Margin="3"
+                                        IsEnabled="False"
+                                        Grid.Column="1"
+                                        Grid.Row="2"
+                                        Minimum="0"
+                                        Maximum="5"
+                                        TickFrequency="1"
+                                        TickPlacement="BottomRight"
+                                        Value="{Binding Path=Rating}"
+                                        />
                             </Grid>
                         </GroupBox>
-                        <Button Name="addToCalendarButton"  Grid.ColumnSpan="2" Grid.Row="3" Height="50px" Click="addToCalendarButton_Click">
-                            Dodaj do kalendarza
-                        </Button>
+
+                        <Border Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                                BorderThickness="3" Width="207" Margin="10" Height="40"
+                                BorderBrush="FloralWhite" CornerRadius="5">
+                            <Button Name="addToCalendarButton" Grid.ColumnSpan="2" Width="200" Height="32"
+                                    Background="PeachPuff" Click="addToCalendarButton_Click">
+                                Dodaj do kalendarza
+                            </Button>
+                        </Border>
 
                         <Image Grid.ColumnSpan="2" Grid.Row="4" MaxHeight="120"
                                Stretch="Uniform" HorizontalAlignment="Center"
-                               Source="{Binding Path=ImagePath, Converter={StaticResource ImagePathConverter}}"
-                            />
+                               Source="{Binding Path=ImagePath, Converter={StaticResource ImagePathConverter}}"/>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Name="MotivationTab" 
-                     Height="100">
+
+            <TabItem Name="MotivationTab" Height="100">
                 <TabItem.Header>
                     <Image Width="50" Source="images/motivation.png"/>
                 </TabItem.Header>
                 <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="images/profle_background.jpg" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                    <MediaElement Name="mediaElementMovie" Margin="10,10,9,103" RenderTransformOrigin="0.5,0.5" 
+                    <MediaElement Name="mediaElementMovie" Margin="10,10,10,100" RenderTransformOrigin="0.5,0.5"
+                                  Grid.Row="0"
                                   MediaOpened="mediaElementMovie_MediaOpened" 
                                   Source="movie.mp4"
                                   LoadedBehavior="Manual"
@@ -624,19 +752,41 @@
                                 <TranslateTransform/>
                             </TransformGroup>
                         </MediaElement.RenderTransform>
-
                     </MediaElement>
-                    <Button x:Name="playMovie" Content="Play" HorizontalAlignment="Left" Margin="14,457,0,0" VerticalAlignment="Top" Width="75" Click="playMovie_Click"/>
-                    <Button x:Name="pauseMovie" Content="Pause" HorizontalAlignment="Left" Margin="124,457,0,0" VerticalAlignment="Top" Width="75" Click="pauseMovie_Click"></Button>
-                    <Button x:Name="stopMovie" Content="Stop" HorizontalAlignment="Left" Margin="236,457,0,0" VerticalAlignment="Top" Width="76" Click="stopMovie_Click"></Button>
-                    <Button x:Name="stopMusic" Content="Stop music&#xD;&#xA;" HorizontalAlignment="Left" Margin="395,457,0,0" VerticalAlignment="Top" Width="76" Click="stopMusic_Click"></Button>
-                    <Slider x:Name="seekSlider" Margin="14,494,26,23" ValueChanged="seekSlider_ValueChanged"/>
-                    <Slider x:Name="volumeSlider" HorizontalAlignment="Left" Margin="642,457,0,0" VerticalAlignment="Top" Width="236" LargeChange="0.1" Maximum="1" SmallChange="0.01" Value="1" ValueChanged="volumeSlider_ValueChanged"/>
-                </Grid>
 
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Border BorderThickness="3" Width="103" Height="28" BorderBrush="FloralWhite"
+                                Margin="5" CornerRadius="5" HorizontalAlignment="Center">
+                            <Button x:Name="playMovie" Content="Play" Width="97"
+                                    Background="PeachPuff" Click="playMovie_Click"/>
+                        </Border>
+
+                        <Border BorderThickness="3" Width="103" Height="28" BorderBrush="FloralWhite"
+                                Margin="5" CornerRadius="5" HorizontalAlignment="Center">
+                            <Button x:Name="pauseMovie" Content="Pause" Width="97"
+                                    Background="PeachPuff" Click="pauseMovie_Click"></Button>
+                        </Border>
+
+                        <Border BorderThickness="3" Width="103" Height="28" BorderBrush="FloralWhite"
+                                Margin="5" CornerRadius="5" HorizontalAlignment="Center">
+                            <Button x:Name="stopMovie" Content="Stop" Width="97"
+                                    Background="PeachPuff" Click="stopMovie_Click"></Button>
+                        </Border>
+
+                        <Slider x:Name="volumeSlider" Width="236" LargeChange="0.1" Maximum="1" SmallChange="0.01"
+                            VerticalAlignment="Center" Value="1" ValueChanged="volumeSlider_ValueChanged" Margin="200,0,0,0"/>
+                    </StackPanel>
+                    <Slider Grid.Row="2" x:Name="seekSlider" ValueChanged="seekSlider_ValueChanged" Margin="10,0,10,0"/>
+                </Grid>
             </TabItem>
             <Button x:Name="button" Content="Button" Height="100" Width="75"/>
-
         </TabControl>
+
+        <Border BorderThickness="3" Width="63" Height="28" BorderBrush="FloralWhite"
+                                Margin="5" CornerRadius="5" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Button x:Name="stopMuxsic" Content="MUTE" Width="57"
+                    Background="PeachPuff" Click="stopMusic_Click"></Button>
+        </Border>
+
     </Grid>
 </Window>

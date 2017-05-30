@@ -1,23 +1,11 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.ComponentModel;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
 using System.Xml.Linq;
 using UserClass;
 using RecipeClass;
@@ -31,13 +19,12 @@ namespace TrenerApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Person osoba;
-        Person osoba = new Person();
+        Person user = new Person();
         Recipe recipe = new Recipe();
-        // public ObservableCollection<Recipe> recipesList;
 
         System.Media.SoundPlayer player = new System.Media.SoundPlayer();
         System.Windows.Threading.DispatcherTimer timer;
+        bool isMusicStopped = false;
 
         public MainWindow()
         {
@@ -55,7 +42,7 @@ namespace TrenerApp
 
             player.SoundLocation = "music.wav";
             player.Play();
-            
+
             timer = new System.Windows.Threading.DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(500);
             timer.Tick += new EventHandler(timer_Tick);
@@ -63,57 +50,37 @@ namespace TrenerApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            user = PersonData.Instance.GetPerson(0);
 
-            //Person osoba = new Person();
-
-            osoba = PersonData.Instance.GetPerson(0);
-
-            BMI_StatusBar.DataContext = osoba;
-            BMI_Value_Label.DataContext = osoba;
-            BMI_Value_TextBlock.DataContext = osoba;
-            tb_name.DataContext = osoba;
-            tb_surname.DataContext = osoba;
-            tb_age.DataContext = osoba;
-            tb_weight.DataContext = osoba;
-            lb_weight.DataContext = osoba;
-            lb_weight_to_lose.DataContext = osoba;
-            tb_height.DataContext = osoba;
-            lb_BMI.DataContext = osoba;
+            BMI_StatusBar.DataContext = user;
+            BMI_Value_Label.DataContext = user;
+            BMI_Value_TextBlock.DataContext = user;
+            tb_name.DataContext = user;
+            tb_surname.DataContext = user;
+            tb_age.DataContext = user;
+            tb_weight.DataContext = user;
+            lb_weight.DataContext = user;
+            lb_weight_to_lose.DataContext = user;
+            tb_height.DataContext = user;
+            lb_BMI.DataContext = user;
         }
 
-        private void DatePicker_SelectedDateChanged(object sender,
-            SelectionChangedEventArgs e)
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
             DateTime? date = picker.SelectedDate;
             XElement xelement = XElement.Load("calendar.xml");
 
             IEnumerable<XElement> calendar = xelement.Elements();
-            // Read the entire XML
             foreach (var day in calendar)
             {
-                //  Console.WriteLine(day);
                 ObservableCollection<Recipe> recipesList = new ObservableCollection<Recipe>();
-
                 if (day.Element("day").Value.Equals(date.Value.ToString("yyyy-MM-dd")))
                 {
-                    Console.WriteLine("Trafiony");
-                    Console.WriteLine(day);
-                    Console.WriteLine(day.Elements("recipes"));
-
                     foreach (XElement ee in day.Descendants("recipeId"))
                     {
-
                         string tempValue = ee.Value;
-
-
-                        //   Console.Write(day2.Element("recipeId").Value);
-
-                        //        tempValue = day2.Element("recipeId").Value;
-
-
                         recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
-
                     }
                     calendarRecipesList.ItemsSource = recipesList;
                 }
@@ -122,9 +89,9 @@ namespace TrenerApp
 
         private void BMIUpdateClick(object sender, EventArgs e)
         {
-            Person osoba = new Person();
-            osoba = PersonData.Instance.GetPerson(0);
-            BMI_Value_Label.DataContext = osoba;
+            Person user = new Person();
+            user = PersonData.Instance.GetPerson(0);
+            BMI_Value_Label.DataContext = user;
             WeightWindow dlg = new WeightWindow();
             dlg.Owner = this;
             dlg.Show();
@@ -133,8 +100,8 @@ namespace TrenerApp
         private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             List<string> data = new List<string>();
-            data.Add("Nazwa");
             data.Add("Kategoria");
+            data.Add("Nazwa");
             data.Add("Opis");
             data.Add("Ocena (1-5)");
 
@@ -147,7 +114,7 @@ namespace TrenerApp
         {
             var comboBox = sender as ComboBox;
             string value = comboBox.SelectedItem as string;
-            this.Title = "Posiłki: " + value;            
+            this.Title = "Posiłki: " + value;
         }
 
         private bool RecipesFilter(object recipe)
@@ -172,7 +139,6 @@ namespace TrenerApp
             {
                 return ((recipe as Recipe).Rating == int.Parse(searchTextBox.Text));
                 //((recipe as Recipe).rating.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-
             }
         }
 
@@ -190,12 +156,10 @@ namespace TrenerApp
             {
                 return false;
             }
-
         }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
             CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
         }
 
@@ -224,16 +188,16 @@ namespace TrenerApp
         private void Change_UserData(object sender, RoutedEventArgs e)
         {
             bool isValid = true;
-            osoba = PersonData.Instance.GetPerson(0);
+            user = PersonData.Instance.GetPerson(0);
 
-            osoba.Name = tb_name.Text;
-            osoba.SecondName = tb_surname.Text;
-            osoba.Age = Int32.Parse(tb_age.Text);
+            user.Name = tb_name.Text;
+            user.SecondName = tb_surname.Text;
+            user.Age = Int32.Parse(tb_age.Text);
             try
             {
-                osoba.Height = Double.Parse(tb_height.Text);
+                user.Height = Double.Parse(tb_height.Text);
             }
-            catch (Exception w)
+            catch
             {
                 MessageBoxResult result = MessageBox
                     .Show("Wprowadź poprawny wzrost", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
@@ -242,11 +206,11 @@ namespace TrenerApp
 
             try
             {
-                osoba.Weight = Double.Parse(tb_weight.Text);
-                osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
-                BMI_StatusBar.Value = osoba.WeightLeft;
+                user.Weight = Double.Parse(tb_weight.Text);
+                user.WeightLeft = user.WeightToLose - (user.Weight - user.WeightToLose);
+                BMI_StatusBar.Value = user.WeightLeft;
             }
-            catch (Exception w)
+            catch
             {
                 MessageBoxResult result = MessageBox
                     .Show("Wprowadź poprawną wagę", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
@@ -285,13 +249,12 @@ namespace TrenerApp
                         }
                     }
                 }
-                
-                string body = @"";
 
+                string body = @"";
+                body += "<br/><br/>";
                 foreach (var item in recipesList)
                 {
-                    body += "<br/><br/>";
-                    body += "<div style='float: left; width: 100%; border: 1px solid black; margin-bottom: 10px; padding-bottom: 30px; padding-left: 30px;'>";
+                    body += "<div style='float: left; width: 100%; border: 1px solid black; margin-bottom: 10px; padding-top: 5px; padding-bottom: 25px; padding-left: 30px;'>";
                     body += "<br/><br/>";
                     body += "<span style='font-size: 16px; font-weight: bold;'>Tytuł: " + item.Title + "</span>";
                     body += "<br/><br/>";
@@ -310,6 +273,7 @@ namespace TrenerApp
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
                 };
+
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
                     Subject = subject,
@@ -354,56 +318,33 @@ namespace TrenerApp
 
             Console.Write(xelement);
 
-
-
             IEnumerable<XElement> calendar = xelement.Elements();
             // Read the entire XML
             foreach (var day in calendar)
             {
-
-
                 if (day.Element("day").Value.Equals(data))
                 {
-
                     IsDateEmpty = false;
-
-
                     Console.WriteLine("Kurwa jego mac");
-
-
-                    day.Element("recipes").Add
-                        (new XElement("recipeId", recipeIdValue));
-
+                    day.Element("recipes").Add(new XElement("recipeId", recipeIdValue));
                     xelement.Save("calendar.xml");
-
-
-
                 }
-
                 else
                 {
 
                 }
             }
 
-
-
             if (IsDateEmpty == true)
             {
                 xelement.AddFirst(new XElement("calendar",
                 new XElement("day", data),
                 new XElement("recipes", new XElement("recipeId", recipeIdValue))));
-
                 xelement.Save("calendar.xml");
-
-
             }
-
-
-
         }
 
-        void timer_Tick (object sender, EventArgs e)
+        void timer_Tick(object sender, EventArgs e)
         {
             seekSlider.Value = mediaElementMovie.Position.TotalSeconds;
         }
@@ -423,27 +364,23 @@ namespace TrenerApp
             mediaElementMovie.Stop();
         }
 
-
         private void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             mediaElementMovie.Volume = (double)volumeSlider.Value;
         }
-
 
         private void seekSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             mediaElementMovie.Position = TimeSpan.FromSeconds(seekSlider.Value);
         }
 
-
         private void Window_Drop(object sender, DragEventArgs e)
         {
             string filename = (string)((DataObject)e.Data).GetFileDropList()[0];
-           
+
             mediaElementMovie.Volume = (double)volumeSlider.Value;
             mediaElementMovie.Play();
         }
-
 
         private void mediaElementMovie_MediaOpened(object sender, RoutedEventArgs e)
         {
@@ -452,12 +389,68 @@ namespace TrenerApp
             timer.Start();
         }
 
-
         private void stopMusic_Click(object sender, RoutedEventArgs e)
         {
-            player.Stop();
-                    
+            if(isMusicStopped == false)
+            {
+                player.Stop();
+                isMusicStopped = true;
+                stopMuxsic.Content = "MUSIC";
+            }
+            else
+            {
+                player.Play();
+                isMusicStopped = false;
+                stopMuxsic.Content = "MUTE";
+            }
+        }
+
+        private void WegeCategory_Click(object sender, RoutedEventArgs e)
+        {
+            SetTabItemIndex();
+            searchTextBox.Text = "Wegetariańskie";
+        }
+
+        private void RiceCategory_Click(object sender, RoutedEventArgs e)
+        {
+            SetTabItemIndex();
+            searchTextBox.Text = "Dania z Ryżem";
+        }
+
+        private void FruitCategory_Click(object sender, RoutedEventArgs e)
+        {
+            SetTabItemIndex();
+            searchTextBox.Text = "Owoce";
+        }
+
+        private void VegetableCategory_Click(object sender, RoutedEventArgs e)
+        {
+            SetTabItemIndex();
+            searchTextBox.Text = "Warzywa";
+        }
+
+        private void FishCategory_Click(object sender, RoutedEventArgs e)
+        {
+            SetTabItemIndex();
+            searchTextBox.Text = "Dania z Rybami";
+        }
+
+        private void SmoothieCategory_Click(object sender, RoutedEventArgs e)
+        {
+            SetTabItemIndex();
+            searchTextBox.Text = "Smoothie";
+        }
+
+        private void BreakfastCategory_Click(object sender, RoutedEventArgs e)
+        {
+            SetTabItemIndex();
+            searchTextBox.Text = "Śniadania";
+        }
+
+        private void SetTabItemIndex()
+        {
+            myTabControl.SelectedIndex = 3;
+            CategoriesComboBox.SelectedIndex = 0;
         }
     }
 }
-
