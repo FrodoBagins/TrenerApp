@@ -469,26 +469,12 @@
                         <ComboBox Name="CategoriesComboBox"
                                   Grid.Row="1" Grid.Column="0"
                                   Height="30"
-                                  Margin="5,0,5,0"
-                                 
+                                  Margin="5,0,5,0"                                 
                                   IsEditable="True"
                                   SelectionChanged="Categories_SelectionChanged"
                                   Loaded="CategoriesComboBox_Loaded">
-                            <!--SelectionChanged="Categories_SelectionChanged"
-                                Loaded="CategoriesComboBox_Loaded"-->
-
                         </ComboBox>
-
-                        <ComboBox Name="ComboBoxKcal"
-                                  Grid.Row="1" 
-                                  Grid.Column="2"
-                                  Height="30"
-                                  Margin="5,0,5,0"                               
-                              	SelectionChanged="Calories_SelectionChanged"
-                              	Loaded="CaloriesComboBox_Loaded"                           	
-                              	>
-                        </ComboBox>
-
+                        
                         <ListBox Name="searchRecips"
                                      Grid.Row="2" 
                                      Grid.RowSpan="2" 
