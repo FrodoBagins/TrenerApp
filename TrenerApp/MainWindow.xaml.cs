@@ -48,11 +48,9 @@ namespace TrenerApp
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
-            //view.Filter = RecipesFilterByCategory;
+            view.Filter = RecipesFilterByCategory;
 
-            //.Filter = RecipesFilterByCategory;
 
-            //view.Filter = RecipesFilterByCategory;
             //   view.Filter = RatingsFilter;
         }
 
@@ -158,7 +156,6 @@ namespace TrenerApp
         private void Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-
             string name = comboBox.SelectedValue as string;
             this.Title = "Posiłki: " + name;
         }
@@ -249,14 +246,14 @@ namespace TrenerApp
 
         private bool RecipesFilterByCategory(object recipe)
         {
+            var category = CategoriesComboBox.SelectedValue as string;
             searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
             if (string.IsNullOrEmpty(searchTextBox.Text))
             {
                 return true;
             }
             else
-            {
-                
+            {               
                 return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
         }
