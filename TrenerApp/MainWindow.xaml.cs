@@ -188,6 +188,10 @@ namespace TrenerApp
             }
             else
             {
+                return false;
+            }
+
+        }
 
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
