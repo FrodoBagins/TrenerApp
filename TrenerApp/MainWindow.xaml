@@ -7,7 +7,8 @@
         xmlns:src="clr-namespace:TrenerApp"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainWindow" Height="600" Width="1000" Left="100" Top="20">
+        Title="MainWindow" Height="600" Width="1000" Left="100" Top="20" AllowDrop="True"
+        Drop="Window_Drop">
     <Window.Resources>
 
     </Window.Resources>
@@ -18,7 +19,11 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid>
-        <TabControl TabStripPlacement="Left" Margin="10" BorderBrush="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="67*"/>
+            <ColumnDefinition Width="429*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl TabStripPlacement="Left" Margin="10" BorderBrush="White" Grid.ColumnSpan="2">
             <TabControl.Resources>
                 <Style TargetType="TabItem">
                     <Setter Property="Template">
@@ -474,7 +479,7 @@
                                   SelectionChanged="Categories_SelectionChanged"
                                   Loaded="CategoriesComboBox_Loaded">
                         </ComboBox>
-                        
+
                         <ListBox Name="searchRecips"
                                      Grid.Row="2" 
                                      Grid.RowSpan="2" 
@@ -503,8 +508,6 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-
-
 
                     </Grid>
 
@@ -601,6 +604,39 @@
                     </Grid>
                 </Grid>
             </TabItem>
+            <TabItem Name="MotivationTab" 
+                     Height="100">
+                <TabItem.Header>
+                    <Image Width="50" Source="images/motivation.png"/>
+                </TabItem.Header>
+                <Grid>
+
+                    <MediaElement Name="mediaElementMovie" Margin="10,10,9,103" RenderTransformOrigin="0.5,0.5" 
+                                  MediaOpened="mediaElementMovie_MediaOpened" 
+                                  Source="movie.mp4"
+                                  LoadedBehavior="Manual"
+                                  UnloadedBehavior="Manual">
+                        <MediaElement.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="-0.049"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </MediaElement.RenderTransform>
+
+                    </MediaElement>
+                    <Button x:Name="playMovie" Content="Play" HorizontalAlignment="Left" Margin="14,457,0,0" VerticalAlignment="Top" Width="75" Click="playMovie_Click"/>
+                    <Button x:Name="pauseMovie" Content="Pause" HorizontalAlignment="Left" Margin="124,457,0,0" VerticalAlignment="Top" Width="75" Click="pauseMovie_Click"></Button>
+                    <Button x:Name="stopMovie" Content="Stop" HorizontalAlignment="Left" Margin="236,457,0,0" VerticalAlignment="Top" Width="76" Click="stopMovie_Click"></Button>
+                    <Button x:Name="stopMusic" Content="Stop music&#xD;&#xA;" HorizontalAlignment="Left" Margin="395,457,0,0" VerticalAlignment="Top" Width="76" Click="stopMusic_Click"></Button>
+                    <Slider x:Name="seekSlider" Margin="14,494,26,23" ValueChanged="seekSlider_ValueChanged"/>
+                    <Slider x:Name="volumeSlider" HorizontalAlignment="Left" Margin="642,457,0,0" VerticalAlignment="Top" Width="236" LargeChange="0.1" Maximum="1" SmallChange="0.01" Value="1" ValueChanged="volumeSlider_ValueChanged"/>
+                </Grid>
+
+            </TabItem>
+            <Button x:Name="button" Content="Button" Height="100" Width="75"/>
+
         </TabControl>
     </Grid>
 </Window>
