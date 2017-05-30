@@ -269,18 +269,6 @@ namespace TrenerApp
             CollectionViewSource.GetDefaultView(CategoriesComboBox.ItemsSource).Refresh();
         }
 
-        private bool RatingsFilter(object recipe)
-        {
-            if (string.IsNullOrEmpty(RatingsComboBox.Text))
-            {
-                return true;
-            }
-            else
-            {
-                return ((recipe as Recipe).Rating == int.Parse(RatingsComboBox.Text));
-            }
-        }
-
         private ListCollectionView View
         {
             get
