@@ -85,10 +85,10 @@ namespace TrenerApp
             // Read the entire XML
             foreach (var day in calendar)
             {
-                  //Console.WriteLine(day);
-                Collection<Recipe> recipesList = new Collection<Recipe>();
+                //  Console.WriteLine(day);
+                ObservableCollection<Recipe> recipesList = new ObservableCollection<Recipe>();
 
-                if (day.Element("day").Value.Equals(date.Value.ToShortDateString()))
+                if (day.Element("day").Value.Equals(date.Value.ToString("yyyy-MM-dd")))
                 {
                     Console.WriteLine("Trafiony");
                     Console.WriteLine(day);
