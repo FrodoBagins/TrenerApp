@@ -96,7 +96,7 @@ namespace TrenerApp
 
                     foreach (XElement ee in day.Descendants("recipeId"))
                     {
-                         Console.WriteLine("dupa"+ee.Value);
+
                         string tempValue = ee.Value;
 
 
@@ -237,7 +237,7 @@ namespace TrenerApp
             else
             {
                 return ((recipe as Recipe).Rating == int.Parse(searchTextBox.Text));
-                    //((recipe as Recipe).rating.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                //((recipe as Recipe).rating.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
 
             }
         }
@@ -245,9 +245,9 @@ namespace TrenerApp
         private bool RecipesFilterByCategory(object recipe)
         {
             var category = CategoriesComboBox.SelectedValue as string;
-           // return ((recipe as Recipe).category.IndexOf(category, StringComparison.OrdinalIgnoreCase) >= 0);
+            // return ((recipe as Recipe).category.IndexOf(category, StringComparison.OrdinalIgnoreCase) >= 0);
 
-           // searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
+            // searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
             if (string.IsNullOrEmpty(searchTextBox.Text))
             {
                 return true;
@@ -397,12 +397,71 @@ namespace TrenerApp
         private void addToCalendarButton_Click(object sender, RoutedEventArgs e)
         {
 
+            //   Name = "searchRecips"
+            XElement xelement = XElement.Load("calendar.xml");
+
+            DateTime? date = DateTime.Now;
+
+            string data = date.Value.ToString("yyyy-MM-dd");
+
+            int recipeIdValue = searchRecips.SelectedIndex;
+
+            bool IsDateEmpty = true;
+
+            Console.WriteLine(recipeIdValue);
+
+            //  XElement xEle = XElement.Load("..\\..\\Employees.xml");
+    //        xelement.AddFirst(new XElement("calendar",
+    //            new XElement("day", data),
+     //           new XElement("recipes", new XElement("recipeId", recipeIdValue))));
+
+            xelement.Save("calendar.xml");
+
+            Console.Write(xelement);
 
 
 
+            IEnumerable<XElement> calendar = xelement.Elements();
+            // Read the entire XML
+            foreach (var day in calendar)
+            {
+
+
+                if (day.Element("day").Value.Equals(data))
+                {
+
+                    IsDateEmpty = false;
+
+                    Console.WriteLine("Kurwa jego mac");
+
+
+                    day.Element("recipes").Add
+                        (new XElement("recipeId", recipeIdValue));
+
+                    xelement.Save("calendar.xml");
 
 
 
+                }
+
+                else
+                {
+
+                }
+            }
+
+
+
+            if(IsDateEmpty == true)
+            {
+                xelement.AddFirst(new XElement("calendar",
+                new XElement("day", data),
+                new XElement("recipes", new XElement("recipeId", recipeIdValue))));
+
+                xelement.Save("calendar.xml");
+
+
+            }
         }
     }
 }
