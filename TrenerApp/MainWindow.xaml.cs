@@ -21,6 +21,8 @@ using System.IO;
 using System.Xml.Linq;
 using UserClass;
 using RecipeClass;
+using System.Net.Mail;
+using System.Net;
 
 namespace TrenerApp
 {
@@ -44,7 +46,7 @@ namespace TrenerApp
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
-         //   view.Filter = RatingsFilter;
+            //   view.Filter = RatingsFilter;
         }
 
 
@@ -197,7 +199,7 @@ namespace TrenerApp
 
             comboBox.ItemsSource = data;
 
-         //   comboBox.SelectedIndex = 0;
+            //   comboBox.SelectedIndex = 0;
         }
 
         private void Ratings_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -207,24 +209,24 @@ namespace TrenerApp
             this.Title = "Ocena dania: " + value;
 
 
-       /*     if (RatingsComboBox.Text.Equals("Ocena"))
-            {
-                View.Filter = null;
-            }
-            else
-            { 
-                int minimumPrice = int.Parse(value);
-                View.Filter = delegate (object item)
-                {
-                    Recipe product = item as Recipe;
+            /*     if (RatingsComboBox.Text.Equals("Ocena"))
+                 {
+                     View.Filter = null;
+                 }
+                 else
+                 { 
+                     int minimumPrice = int.Parse(value);
+                     View.Filter = delegate (object item)
+                     {
+                         Recipe product = item as Recipe;
 
-                    if (product != null)
-                    {
-                        return (product.Rating == minimumPrice);
-                    }
-                    return false;
-                };
-            }  */
+                         if (product != null)
+                         {
+                             return (product.Rating == minimumPrice);
+                         }
+                         return false;
+                     };
+                 }  */
         }
 
         private bool RecipesFilter(object recipe)
@@ -268,27 +270,27 @@ namespace TrenerApp
 
         private void Filter(object sender, RoutedEventArgs e)
         {
-/*
-            if (RatingsComboBox.Text.Equals("Ocena"))
-            {
-                View.Filter = null;
+            /*
+                        if (RatingsComboBox.Text.Equals("Ocena"))
+                        {
+                            View.Filter = null;
 
-            }
-            else
-            {
+                        }
+                        else
+                        {
 
-                int minimumPrice = int.Parse(RatingsComboBox.Text);
-                View.Filter = delegate (object item)
-                {
-                    Recipe product = item as Recipe;
+                            int minimumPrice = int.Parse(RatingsComboBox.Text);
+                            View.Filter = delegate (object item)
+                            {
+                                Recipe product = item as Recipe;
 
-                    if (product != null)
-                    {
-                        return (product.Rating > minimumPrice);
-                    }
-                    return false;
-                };
-            }*/
+                                if (product != null)
+                                {
+                                    return (product.Rating > minimumPrice);
+                                }
+                                return false;
+                            };
+                        }*/
 
         }
 
@@ -334,6 +336,44 @@ namespace TrenerApp
                 MessageBoxResult result = MessageBox.Show("Wprowadź poprawną wagę", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
 
+        }
+
+        public void SendEmail()
+        {
+            if (tbEmail.Text != "" && dpDate.SelectedDate.HasValue)
+            {
+                DateTime? date = dpDate.SelectedDate;
+                var fromAddress = new MailAddress("bookwebemail@gmail.com", "TrenerApp Email");
+                var toAddress = new MailAddress(tbEmail.Text, "Odbiorca");
+                const string fromPassword = "bookweb123";
+                string subject = "Twój super jadłospis z dnia: " + date.Value.ToShortDateString();
+                string body = @"No i kurde wypas niesamowity teraz.";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                    smtp.Send(message);
+                MessageBox.Show("Email został wysłany!");
+            }
+            else
+            {
+                MessageBox.Show("Nieprawidłowe dane.");
+            }
+        }
+
+        private void SendEmail_Click(object sender, RoutedEventArgs e)
+        {
+            SendEmail();
         }
     }
 }

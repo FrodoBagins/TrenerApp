@@ -293,7 +293,7 @@
                     <Grid Grid.Row="2" Grid.Column="0"   Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition/>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -370,20 +370,29 @@
                         <ColumnDefinition Width="300"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <!--<Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                    <DatePicker Grid.Column="0" HorizontalAlignment="Center"
-                                Name="Calendar"
+                    <DatePicker Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"
                                 Margin="0,30,0,0"
                                 FontSize="20"
                                 Width="185"
+                                Name="dpDate"
                                 VerticalAlignment="Top"
                                 SelectedDateChanged="DatePicker_SelectedDateChanged"/>
 
-                    <Grid Grid.Column="1" Margin="30">
+                    <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Left">
+                        <Label Content="Wpisz adres email, aby wysłać jadłospis:"></Label>
+                        <TextBox x:Name="tbEmail" Width="100" Height="20" Margin="5" HorizontalAlignment="Left"></TextBox>
+                        <Border BorderThickness="3" Width="103" Height="28" BorderBrush="FloralWhite" Margin="5" CornerRadius="5" HorizontalAlignment="Left">
+                            <Button Width="95" Height="22" Content="Wyslij lol" Click="SendEmail_Click" Background="PeachPuff"></Button>
+                        </Border>
+
+                    </StackPanel>
+
+                    <Grid Grid.Column="1" Grid.RowSpan="2" Margin="30">
                         <ListBox Name="calendarRecipesList" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
