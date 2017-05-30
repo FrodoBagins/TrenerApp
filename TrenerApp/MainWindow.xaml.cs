@@ -399,6 +399,17 @@ namespace TrenerApp
         {
             SendEmail();
         }
+
+        private void addToCalendarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+
+
+
+
+
+
+        }
     }
 }
 
