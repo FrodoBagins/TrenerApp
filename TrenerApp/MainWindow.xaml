@@ -591,8 +591,6 @@
                                 <Label Margin="3" Grid.Row="1">Kategoria</Label>
                                 <Label Margin="3" Grid.Row="2">Ocena</Label>
 
-
-
                                 <TextBox Name="Category_TextBox"  
                                          Margin="3" Grid.Column="1" 
                                          Text="{Binding Path=Calories}"
@@ -623,8 +621,8 @@
 
                             </Grid>
                         </GroupBox>
-                        <Button Name="deleteBut"  Grid.ColumnSpan="2" Grid.Row="3" Height="50px">
-                            Usuń
+                        <Button Name="addToCalendarButton"  Grid.ColumnSpan="2" Grid.Row="3" Height="50px" Click="addToCalendarButton_Click">
+                            Dodaj do kalendarza
                         </Button>
 
                         <Image Grid.ColumnSpan="2" Grid.Row="4" MaxHeight="120"
