@@ -317,7 +317,7 @@
                         <TextBox Name="tb_age" Grid.Row="3" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Age,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBox Name="tb_weight" Grid.Row="4" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Weight,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <TextBox Name="tb_height" Grid.Row="5" Grid.Column="1" Margin="3,3,-148,3" FontWeight="Bold" Background="Transparent" Text="{Binding Path=Height,UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <Label Name="lb_BMI" Grid.Row="6" Grid.Column="1" Margin="3" FontWeight="Bold" Background="Transparent">wyliczone podpiąć</Label>
+                        <Label Name="lb_BMI" Grid.Row="6" Grid.Column="1" Margin="3,3,0,3" FontWeight="Bold" Background="Transparent" HorizontalAlignment="Left" Width="115" Content="{Binding Path=BMI,UpdateSourceTrigger=PropertyChanged}"></Label>
                         <Button Grid.Row="7" Grid.Column="1" Height="30" Click="Change_UserData" Margin="0,1,-41,1">Zapisz zmiany</Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
@@ -483,8 +483,8 @@
                                   IsSynchronizedWithCurrentItem="True" 
                                   SelectionChanged="Categories_SelectionChanged">
                             <!--SelectionChanged="Categories_SelectionChanged"
-                                Loaded="CategoriesComboBox_Loaded"--> 
-                              	
+                                Loaded="CategoriesComboBox_Loaded"-->
+
                         </ComboBox>
 
                         <ComboBox Name="RatingsComboBox"

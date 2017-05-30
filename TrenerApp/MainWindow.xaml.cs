@@ -44,7 +44,7 @@ namespace TrenerApp
             searchRecips.ItemsSource = RecipeData.Instance.Recipes;
             Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
             CategoriesComboBox.ItemsSource = CategoryData.Instance.Categories;
-           // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
+            // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
@@ -110,18 +110,18 @@ namespace TrenerApp
                         string tempValue = ee.Value;
 
 
-                     //   Console.Write(day2.Element("recipeId").Value);
+                        //   Console.Write(day2.Element("recipeId").Value);
 
-                          //        tempValue = day2.Element("recipeId").Value;
+                        //        tempValue = day2.Element("recipeId").Value;
 
 
-                             recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
+                        recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
 
                     }
 
                     calendarRecipesList.ItemsSource = recipesList;
 
-                }            
+                }
             }
 
         }
@@ -256,7 +256,7 @@ namespace TrenerApp
             }
             else
             {
-                
+
                 return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
         }
@@ -334,6 +334,7 @@ namespace TrenerApp
 
         private void Change_UserData(object sender, RoutedEventArgs e)
         {
+            bool isValid = true;
             osoba = PersonData.Instance.GetPerson(0);
 
             osoba.Name = tb_name.Text;
@@ -345,7 +346,9 @@ namespace TrenerApp
             }
             catch (Exception w)
             {
-                MessageBoxResult result = MessageBox.Show("Wprowadź poprawny wzrost", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBoxResult result = MessageBox
+                    .Show("Wprowadź poprawny wzrost", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                isValid = false;
             }
 
             try
@@ -354,12 +357,18 @@ namespace TrenerApp
                 osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
                 BMI_StatusBar.Value = osoba.WeightLeft;
             }
-
             catch (Exception w)
             {
-                MessageBoxResult result = MessageBox.Show("Wprowadź poprawną wagę", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBoxResult result = MessageBox
+                    .Show("Wprowadź poprawną wagę", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                isValid = false;
             }
 
+            if (isValid)
+            {
+                MessageBoxResult result2 = MessageBox
+                    .Show("Zmiany zostały zapisane", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         public void SendEmail()
