@@ -47,13 +47,12 @@ namespace TrenerApp
            // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
-            view.Filter = RecipesFilter;
-            view.Filter = RecipesFilterByCategory;
+            CollectionView searchView = (CollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource) as CollectionView;
 
-
+            searchView.Filter = RecipesFilter;
+            //searchView.Filter = RecipesFilterByCategory;
             //   view.Filter = RatingsFilter;
         }
-
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -75,83 +74,64 @@ namespace TrenerApp
             lb_BMI.DataContext = osoba;
         }
 
-
         private void DatePicker_SelectedDateChanged(object sender,
             SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
             DateTime? date = picker.SelectedDate;
-
             XElement xelement = XElement.Load("calendar.xml");
 
             IEnumerable<XElement> calendar = xelement.Elements();
             // Read the entire XML
             foreach (var day in calendar)
             {
-                //  Console.WriteLine(day);
+                  //Console.WriteLine(day);
                 Collection<Recipe> recipesList = new Collection<Recipe>();
 
                 if (day.Element("day").Value.Equals(date.Value.ToShortDateString()))
                 {
                     Console.WriteLine("Trafiony");
-
                     Console.WriteLine(day);
-
                     Console.WriteLine(day.Elements("recipes"));
-
-
 
                     foreach (XElement ee in day.Descendants("recipeId"))
                     {
-
-                        //  Console.WriteLine("dupa"+ee.Value);
+                         Console.WriteLine("dupa"+ee.Value);
                         string tempValue = ee.Value;
-
 
                      //   Console.Write(day2.Element("recipeId").Value);
 
                           //        tempValue = day2.Element("recipeId").Value;
 
-
                              recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
-
                     }
-
                     calendarRecipesList.ItemsSource = recipesList;
-
                 }            
             }
-
         }
 
         private void BMIUpdateClick(object sender, EventArgs e)
         {
             Person osoba = new Person();
             osoba = PersonData.Instance.GetPerson(0);
-
             BMI_Value_Label.DataContext = osoba;
-
             WeightWindow dlg = new WeightWindow();
             dlg.Owner = this;
             dlg.Show();
         }
 
-        //private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    // ... A List.
-        //    List<string> data = new List<string>();
-        //    data.Add("Wszystkie typy");
-        //    data.Add("Dania wegetariańskie");
-        //    data.Add("Dania mięsne");
-        //    data.Add("Desery");
-        //    data.Add("Sałatki");
+        private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("Nazwa");
+            data.Add("Kategoria");
+            data.Add("Opis");
+            data.Add("Ocena (1-5)");
 
-        //    var comboBox = sender as ComboBox;
-
-        //    comboBox.ItemsSource = data;
-
-        //    comboBox.SelectedIndex = 0;
-        //}
+            var comboBox = sender as ComboBox;
+            comboBox.ItemsSource = data;
+            comboBox.SelectedIndex = 0;
+        }
 
         private void Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -238,22 +218,38 @@ namespace TrenerApp
             {
                 return true;
             }
-            else
+            else if (CategoriesComboBox.SelectedValue as string == "Nazwa")
             {
                 return ((recipe as Recipe).title.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            else if (CategoriesComboBox.SelectedValue as string == "Kategoria")
+            {
+                return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            else if (CategoriesComboBox.SelectedValue as string == "Opis")
+            {
+                return ((recipe as Recipe).description.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            else
+            {
+                return ((recipe as Recipe).Rating == int.Parse(searchTextBox.Text));
+                    //((recipe as Recipe).rating.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+
             }
         }
 
         private bool RecipesFilterByCategory(object recipe)
         {
             var category = CategoriesComboBox.SelectedValue as string;
-            searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
+           // return ((recipe as Recipe).category.IndexOf(category, StringComparison.OrdinalIgnoreCase) >= 0);
+
+           // searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
             if (string.IsNullOrEmpty(searchTextBox.Text))
             {
                 return true;
             }
             else
-            {               
+            {
                 return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
         }
@@ -265,7 +261,7 @@ namespace TrenerApp
 
         private void CategoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(CategoriesComboBox.ItemsSource).Refresh();
         }
 
         private bool RatingsFilter(object recipe)
@@ -276,7 +272,6 @@ namespace TrenerApp
             }
             else
             {
-
                 return ((recipe as Recipe).Rating == int.Parse(RatingsComboBox.Text));
             }
         }

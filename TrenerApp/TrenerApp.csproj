@@ -176,10 +176,11 @@
     <Resource Include="images\zupanic.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="recipes.xml" />
+    <Resource Include="categories.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="categories.xml" />
+    <Resource Include="calendar.xml" />
+    <Resource Include="recipes.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
