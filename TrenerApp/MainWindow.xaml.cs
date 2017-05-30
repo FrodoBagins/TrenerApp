@@ -47,15 +47,12 @@ namespace TrenerApp
             // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
-            view.Filter = RecipesFilter;
-            //view.Filter = RecipesFilterByCategory;
+            CollectionView searchView = (CollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource) as CollectionView;
 
-            //.Filter = RecipesFilterByCategory;
-
-            //view.Filter = RecipesFilterByCategory;
+            searchView.Filter = RecipesFilter;
+            //searchView.Filter = RecipesFilterByCategory;
             //   view.Filter = RatingsFilter;
         }
-
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -77,13 +74,11 @@ namespace TrenerApp
             lb_BMI.DataContext = osoba;
         }
 
-
         private void DatePicker_SelectedDateChanged(object sender,
             SelectionChangedEventArgs e)
         {
             var picker = sender as DatePicker;
             DateTime? date = picker.SelectedDate;
-
             XElement xelement = XElement.Load("calendar.xml");
 
             IEnumerable<XElement> calendar = xelement.Elements();
@@ -96,17 +91,12 @@ namespace TrenerApp
                 if (day.Element("day").Value.Equals(date.Value.ToString("yyyy-MM-dd")))
                 {
                     Console.WriteLine("Trafiony");
-
                     Console.WriteLine(day);
-
                     Console.WriteLine(day.Elements("recipes"));
-
-
 
                     foreach (XElement ee in day.Descendants("recipeId"))
                     {
-
-                        //  Console.WriteLine("dupa"+ee.Value);
+                         Console.WriteLine("dupa"+ee.Value);
                         string tempValue = ee.Value;
 
 
@@ -118,47 +108,38 @@ namespace TrenerApp
                         recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
 
                     }
-
                     calendarRecipesList.ItemsSource = recipesList;
 
                 }
             }
-
         }
 
         private void BMIUpdateClick(object sender, EventArgs e)
         {
             Person osoba = new Person();
             osoba = PersonData.Instance.GetPerson(0);
-
             BMI_Value_Label.DataContext = osoba;
-
             WeightWindow dlg = new WeightWindow();
             dlg.Owner = this;
             dlg.Show();
         }
 
-        //private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    // ... A List.
-        //    List<string> data = new List<string>();
-        //    data.Add("Wszystkie typy");
-        //    data.Add("Dania wegetariańskie");
-        //    data.Add("Dania mięsne");
-        //    data.Add("Desery");
-        //    data.Add("Sałatki");
+        private void CategoriesComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("Nazwa");
+            data.Add("Kategoria");
+            data.Add("Opis");
+            data.Add("Ocena (1-5)");
 
-        //    var comboBox = sender as ComboBox;
-
-        //    comboBox.ItemsSource = data;
-
-        //    comboBox.SelectedIndex = 0;
-        //}
+            var comboBox = sender as ComboBox;
+            comboBox.ItemsSource = data;
+            comboBox.SelectedIndex = 0;
+        }
 
         private void Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-
             string name = comboBox.SelectedValue as string;
             this.Title = "Posiłki: " + name;
         }
@@ -241,15 +222,32 @@ namespace TrenerApp
             {
                 return true;
             }
-            else
+            else if (CategoriesComboBox.SelectedValue as string == "Nazwa")
             {
                 return ((recipe as Recipe).title.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            else if (CategoriesComboBox.SelectedValue as string == "Kategoria")
+            {
+                return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            else if (CategoriesComboBox.SelectedValue as string == "Opis")
+            {
+                return ((recipe as Recipe).description.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+            else
+            {
+                return ((recipe as Recipe).Rating == int.Parse(searchTextBox.Text));
+                    //((recipe as Recipe).rating.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+
             }
         }
 
         private bool RecipesFilterByCategory(object recipe)
         {
-            searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
+            var category = CategoriesComboBox.SelectedValue as string;
+           // return ((recipe as Recipe).category.IndexOf(category, StringComparison.OrdinalIgnoreCase) >= 0);
+
+           // searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
             if (string.IsNullOrEmpty(searchTextBox.Text))
             {
                 return true;
@@ -268,20 +266,7 @@ namespace TrenerApp
 
         private void CategoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
-        }
-
-        private bool RatingsFilter(object recipe)
-        {
-            if (string.IsNullOrEmpty(RatingsComboBox.Text))
-            {
-                return true;
-            }
-            else
-            {
-
-                return ((recipe as Recipe).Rating == int.Parse(RatingsComboBox.Text));
-            }
+            CollectionViewSource.GetDefaultView(CategoriesComboBox.ItemsSource).Refresh();
         }
 
         private ListCollectionView View
@@ -334,6 +319,7 @@ namespace TrenerApp
 
         private void Change_UserData(object sender, RoutedEventArgs e)
         {
+            bool isValid = true;
             osoba = PersonData.Instance.GetPerson(0);
 
             osoba.Name = tb_name.Text;
@@ -345,7 +331,9 @@ namespace TrenerApp
             }
             catch (Exception w)
             {
-                MessageBoxResult result = MessageBox.Show("Wprowadź poprawny wzrost", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBoxResult result = MessageBox
+                    .Show("Wprowadź poprawny wzrost", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                isValid = false;
             }
 
             try
@@ -354,12 +342,18 @@ namespace TrenerApp
                 osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
                 BMI_StatusBar.Value = osoba.WeightLeft;
             }
-
             catch (Exception w)
             {
-                MessageBoxResult result = MessageBox.Show("Wprowadź poprawną wagę", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                MessageBoxResult result = MessageBox
+                    .Show("Wprowadź poprawną wagę", "", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                isValid = false;
             }
 
+            if (isValid)
+            {
+                MessageBoxResult result2 = MessageBox
+                    .Show("Zmiany zostały zapisane", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         public void SendEmail()
