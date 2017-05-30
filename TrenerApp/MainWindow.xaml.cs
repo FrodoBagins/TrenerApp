@@ -36,6 +36,9 @@ namespace TrenerApp
         Recipe recipe = new Recipe();
         // public ObservableCollection<Recipe> recipesList;
 
+        System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+        System.Windows.Threading.DispatcherTimer timer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -44,14 +47,18 @@ namespace TrenerApp
             searchRecips.ItemsSource = RecipeData.Instance.Recipes;
             Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
             CategoriesComboBox.ItemsSource = CategoryData.Instance.Categories;
-            // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
             CollectionView searchView = (CollectionView)CollectionViewSource.GetDefaultView(searchRecips.ItemsSource) as CollectionView;
 
             searchView.Filter = RecipesFilter;
-            //searchView.Filter = RecipesFilterByCategory;
-            //   view.Filter = RatingsFilter;
+
+            player.SoundLocation = "music.wav";
+            player.Play();
+            
+            timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Tick += new EventHandler(timer_Tick);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -109,7 +116,6 @@ namespace TrenerApp
 
                     }
                     calendarRecipesList.ItemsSource = recipesList;
-
                 }
             }
         }
@@ -140,80 +146,8 @@ namespace TrenerApp
         private void Categories_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var comboBox = sender as ComboBox;
-            string name = comboBox.SelectedValue as string;
-            this.Title = "Posiłki: " + name;
-        }
-
-        private void CaloriesComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            // ... A List.
-            List<string> data = new List<string>();
-            data.Add("Kaloryczność");
-            data.Add("0-100");
-            data.Add("101-200");
-            data.Add("201-300");
-            data.Add("301-400");
-            data.Add("401-500");
-            data.Add("500<...");
-
-            var comboBox = sender as ComboBox;
-
-            comboBox.ItemsSource = data;
-
-            comboBox.SelectedIndex = 0;
-        }
-
-        private void Calories_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var comboBox = sender as ComboBox;
             string value = comboBox.SelectedItem as string;
-            this.Title = "Kaloryczność dania: " + value;
-        }
-
-        private void RatingsComboBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            // ... A List.
-            List<string> data = new List<string>();
-            data.Add("");
-            data.Add("0");
-            data.Add("1");
-            data.Add("2");
-            data.Add("3");
-            data.Add("4");
-            data.Add("5");
-
-            var comboBox = sender as ComboBox;
-
-            comboBox.ItemsSource = data;
-
-            //   comboBox.SelectedIndex = 0;
-        }
-
-        private void Ratings_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var comboBox = sender as ComboBox;
-            string value = comboBox.SelectedItem as string;
-            this.Title = "Ocena dania: " + value;
-
-
-            /*     if (RatingsComboBox.Text.Equals("Ocena"))
-                 {
-                     View.Filter = null;
-                 }
-                 else
-                 { 
-                     int minimumPrice = int.Parse(value);
-                     View.Filter = delegate (object item)
-                     {
-                         Recipe product = item as Recipe;
-
-                         if (product != null)
-                         {
-                             return (product.Rating == minimumPrice);
-                         }
-                         return false;
-                     };
-                 }  */
+            this.Title = "Posiłki: " + value;            
         }
 
         private bool RecipesFilter(object recipe)
@@ -237,36 +171,13 @@ namespace TrenerApp
             else
             {
                 return ((recipe as Recipe).Rating == int.Parse(searchTextBox.Text));
-                    //((recipe as Recipe).rating.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-
             }
         }
 
-        private bool RecipesFilterByCategory(object recipe)
-        {
-            var category = CategoriesComboBox.SelectedValue as string;
-           // return ((recipe as Recipe).category.IndexOf(category, StringComparison.OrdinalIgnoreCase) >= 0);
-
-           // searchTextBox.Text = CategoriesComboBox.SelectedValue.ToString();
-            if (string.IsNullOrEmpty(searchTextBox.Text))
-            {
-                return true;
-            }
-            else
-            {
-
-                return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
-        }
         private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
             CollectionViewSource.GetDefaultView(searchRecips.ItemsSource).Refresh();
-        }
-
-        private void CategoriesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            CollectionViewSource.GetDefaultView(CategoriesComboBox.ItemsSource).Refresh();
         }
 
         private ListCollectionView View
@@ -275,32 +186,6 @@ namespace TrenerApp
             {
                 return (ListCollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource);
             }
-        }
-
-        private void Filter(object sender, RoutedEventArgs e)
-        {
-            /*
-                        if (RatingsComboBox.Text.Equals("Ocena"))
-                        {
-                            View.Filter = null;
-
-                        }
-                        else
-                        {
-
-                            int minimumPrice = int.Parse(RatingsComboBox.Text);
-                            View.Filter = delegate (object item)
-                            {
-                                Recipe product = item as Recipe;
-
-                                if (product != null)
-                                {
-                                    return (product.Rating > minimumPrice);
-                                }
-                                return false;
-                            };
-                        }*/
-
         }
 
         private void Change_Thumbnail(object sender, RoutedEventArgs e)
@@ -403,6 +288,56 @@ namespace TrenerApp
 
 
 
+        }
+
+        void timer_Tick (object sender, EventArgs e)
+        {
+            seekSlider.Value = mediaElementMovie.Position.TotalSeconds;
+        }
+
+        private void playMovie_Click(object sender, RoutedEventArgs e)
+        {
+            mediaElementMovie.Play();
+        }
+
+        private void pauseMovie_Click(object sender, RoutedEventArgs e)
+        {
+            mediaElementMovie.Pause();
+        }
+
+        private void stopMovie_Click(object sender, RoutedEventArgs e)
+        {
+            mediaElementMovie.Stop();
+        }
+
+        private void volumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            mediaElementMovie.Volume = (double)volumeSlider.Value;
+        }
+
+        private void seekSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            mediaElementMovie.Position = TimeSpan.FromSeconds(seekSlider.Value);
+        }
+
+        private void Window_Drop(object sender, DragEventArgs e)
+        {
+            string filename = (string)((DataObject)e.Data).GetFileDropList()[0];
+           
+            mediaElementMovie.Volume = (double)volumeSlider.Value;
+            mediaElementMovie.Play();
+        }
+
+        private void mediaElementMovie_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            TimeSpan ts = mediaElementMovie.NaturalDuration.TimeSpan;
+            seekSlider.Maximum = ts.TotalSeconds;
+            timer.Start();
+        }
+
+        private void stopMusic_Click(object sender, RoutedEventArgs e)
+        {
+            player.Stop();
         }
     }
 }
