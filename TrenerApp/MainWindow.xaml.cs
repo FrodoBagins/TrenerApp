@@ -44,7 +44,7 @@ namespace TrenerApp
             searchRecips.ItemsSource = RecipeData.Instance.Recipes;
             Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
             CategoriesComboBox.ItemsSource = CategoryData.Instance.Categories;
-           // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
+            // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
@@ -110,18 +110,18 @@ namespace TrenerApp
                         string tempValue = ee.Value;
 
 
-                     //   Console.Write(day2.Element("recipeId").Value);
+                        //   Console.Write(day2.Element("recipeId").Value);
 
-                          //        tempValue = day2.Element("recipeId").Value;
+                        //        tempValue = day2.Element("recipeId").Value;
 
 
-                             recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
+                        recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
 
                     }
 
                     calendarRecipesList.ItemsSource = recipesList;
 
-                }            
+                }
             }
 
         }
@@ -256,7 +256,7 @@ namespace TrenerApp
             }
             else
             {
-                
+
                 return ((recipe as Recipe).category.IndexOf(searchTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
         }
@@ -371,7 +371,38 @@ namespace TrenerApp
                 var toAddress = new MailAddress(tbEmail.Text, "Odbiorca");
                 const string fromPassword = "bookweb123";
                 string subject = "Twój super jadłospis z dnia: " + date.Value.ToShortDateString();
-                string body = @"No i kurde wypas niesamowity teraz.";
+
+                XElement xelement = XElement.Load("calendar.xml");
+                IEnumerable<XElement> calendar = xelement.Elements();
+                ObservableCollection<Recipe> recipesList = new ObservableCollection<Recipe>();
+
+                foreach (var day in calendar)
+                {
+                    if (day.Element("day").Value.Equals(date.Value.ToString("yyyy-MM-dd")))
+                    {
+                        foreach (XElement ee in day.Descendants("recipeId"))
+                        {
+                            string tempValue = ee.Value;
+                            recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
+                        }
+                    }
+                }
+                
+                string body = @"";
+
+                foreach (var item in recipesList)
+                {
+                    body += "<br/><br/>";
+                    body += "<div style='float: left; width: 100%; border: 1px solid black; margin-bottom: 10px; padding-bottom: 30px; padding-left: 30px;'>";
+                    body += "<br/><br/>";
+                    body += "<span style='font-size: 16px; font-weight: bold;'>Tytuł: " + item.Title + "</span>";
+                    body += "<br/><br/>";
+                    body += "<span>Opis: " + item.Description + "</span>";
+                    body += "<br/><br/>";
+                    body += "<span  style='font-weight: bold;'>Ilość kalorii: " + item.calories + "</span>";
+                    body += "</div>";
+                }
+
                 var smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",
@@ -384,10 +415,11 @@ namespace TrenerApp
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
                     Subject = subject,
-                    Body = body
+                    Body = body,
+                    IsBodyHtml = true
                 })
                     smtp.Send(message);
-                MessageBox.Show("Email został wysłany!");
+                MessageBox.Show("Email został wysłany! ;)");
             }
             else
             {
