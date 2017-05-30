@@ -18,8 +18,11 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using System.Xml.Linq;
 using UserClass;
 using RecipeClass;
+using System.Net.Mail;
+using System.Net;
 
 namespace TrenerApp
 {
@@ -30,19 +33,20 @@ namespace TrenerApp
     {
         //Person osoba;
         Person osoba = new Person();
+        Recipe recipe = new Recipe();
         // public ObservableCollection<Recipe> recipesList;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            recipes.ItemsSource = RecipeData.Instance.Recipes;
+            calendarRecipesList.ItemsSource = RecipeData.Instance.Recipes;
             searchRecips.ItemsSource = RecipeData.Instance.Recipes;
             Category_ComboBox.ItemsSource = RecipeData.Instance.Recipes;
             CategoriesComboBox.ItemsSource = CategoryData.Instance.Categories;
            // RatingsComboBox.ItemsSource = RecipeData.Instance.Recipes;
 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(recipes.ItemsSource) as CollectionView;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource) as CollectionView;
             view.Filter = RecipesFilter;
             //view.Filter = RecipesFilterByCategory;
 
@@ -79,14 +83,47 @@ namespace TrenerApp
         {
             var picker = sender as DatePicker;
             DateTime? date = picker.SelectedDate;
-            //if (date == null)
-            //{
-            //    this.Title = "Brak daty.";
-            //}
-            //else
-            //{
-            //    this.Title = date.Value.ToShortDateString();
-            //}
+
+            XElement xelement = XElement.Load("calendar.xml");
+
+            IEnumerable<XElement> calendar = xelement.Elements();
+            // Read the entire XML
+            foreach (var day in calendar)
+            {
+                //  Console.WriteLine(day);
+                Collection<Recipe> recipesList = new Collection<Recipe>();
+
+                if (day.Element("day").Value.Equals(date.Value.ToShortDateString()))
+                {
+                    Console.WriteLine("Trafiony");
+
+                    Console.WriteLine(day);
+
+                    Console.WriteLine(day.Elements("recipes"));
+
+
+
+                    foreach (XElement ee in day.Descendants("recipeId"))
+                    {
+
+                        //  Console.WriteLine("dupa"+ee.Value);
+                        string tempValue = ee.Value;
+
+
+                     //   Console.Write(day2.Element("recipeId").Value);
+
+                          //        tempValue = day2.Element("recipeId").Value;
+
+
+                             recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
+
+                    }
+
+                    calendarRecipesList.ItemsSource = recipesList;
+
+                }            
+            }
+
         }
 
         private void BMIUpdateClick(object sender, EventArgs e)
@@ -168,7 +205,7 @@ namespace TrenerApp
 
             comboBox.ItemsSource = data;
 
-         //   comboBox.SelectedIndex = 0;
+            //   comboBox.SelectedIndex = 0;
         }
 
         private void Ratings_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -178,24 +215,24 @@ namespace TrenerApp
             this.Title = "Ocena dania: " + value;
 
 
-       /*     if (RatingsComboBox.Text.Equals("Ocena"))
-            {
-                View.Filter = null;
-            }
-            else
-            { 
-                int minimumPrice = int.Parse(value);
-                View.Filter = delegate (object item)
-                {
-                    Recipe product = item as Recipe;
+            /*     if (RatingsComboBox.Text.Equals("Ocena"))
+                 {
+                     View.Filter = null;
+                 }
+                 else
+                 { 
+                     int minimumPrice = int.Parse(value);
+                     View.Filter = delegate (object item)
+                     {
+                         Recipe product = item as Recipe;
 
-                    if (product != null)
-                    {
-                        return (product.Rating == minimumPrice);
-                    }
-                    return false;
-                };
-            }  */
+                         if (product != null)
+                         {
+                             return (product.Rating == minimumPrice);
+                         }
+                         return false;
+                     };
+                 }  */
         }
 
         private bool RecipesFilter(object recipe)
@@ -251,33 +288,33 @@ namespace TrenerApp
         {
             get
             {
-                return (ListCollectionView)CollectionViewSource.GetDefaultView(recipes.ItemsSource);
+                return (ListCollectionView)CollectionViewSource.GetDefaultView(calendarRecipesList.ItemsSource);
             }
         }
 
         private void Filter(object sender, RoutedEventArgs e)
         {
-/*
-            if (RatingsComboBox.Text.Equals("Ocena"))
-            {
-                View.Filter = null;
+            /*
+                        if (RatingsComboBox.Text.Equals("Ocena"))
+                        {
+                            View.Filter = null;
 
-            }
-            else
-            {
+                        }
+                        else
+                        {
 
-                int minimumPrice = int.Parse(RatingsComboBox.Text);
-                View.Filter = delegate (object item)
-                {
-                    Recipe product = item as Recipe;
+                            int minimumPrice = int.Parse(RatingsComboBox.Text);
+                            View.Filter = delegate (object item)
+                            {
+                                Recipe product = item as Recipe;
 
-                    if (product != null)
-                    {
-                        return (product.Rating > minimumPrice);
-                    }
-                    return false;
-                };
-            }*/
+                                if (product != null)
+                                {
+                                    return (product.Rating > minimumPrice);
+                                }
+                                return false;
+                            };
+                        }*/
 
         }
 
@@ -322,6 +359,45 @@ namespace TrenerApp
             {
                 MessageBoxResult result = MessageBox.Show("Wprowadź poprawną wagę", w.ToString(), MessageBoxButton.OK, MessageBoxImage.Asterisk);
             }
+
+        }
+
+        public void SendEmail()
+        {
+            if (tbEmail.Text != "" && dpDate.SelectedDate.HasValue)
+            {
+                DateTime? date = dpDate.SelectedDate;
+                var fromAddress = new MailAddress("bookwebemail@gmail.com", "TrenerApp Email");
+                var toAddress = new MailAddress(tbEmail.Text, "Odbiorca");
+                const string fromPassword = "bookweb123";
+                string subject = "Twój super jadłospis z dnia: " + date.Value.ToShortDateString();
+                string body = @"No i kurde wypas niesamowity teraz.";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                    smtp.Send(message);
+                MessageBox.Show("Email został wysłany!");
+            }
+            else
+            {
+                MessageBox.Show("Nieprawidłowe dane.");
+            }
+        }
+
+        private void SendEmail_Click(object sender, RoutedEventArgs e)
+        {
+            SendEmail();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace UserClass
         private double weight;
         private double weight_lose;
         private double weight_left;
+        private double weight_left2;
         private double height;
         private double bmi;
         private int age;
@@ -57,6 +58,12 @@ namespace UserClass
             set { weight_left = value;  }
         }
 
+        public double WeightLeft2
+        {
+            get { return weight_left2; }
+            set { weight_left2 = value; }
+        }
+
         public double Height
         {
             get { return height; }
@@ -84,7 +91,8 @@ namespace UserClass
             Weight = weight;
             WeightToLose = weight_lose;
             Height = height;
-            WeightLeft = weight_lose - (weight - weight_lose);
+            WeightLeft = weight - weight_lose;
+            WeightLeft2 = (weight - weight_lose) - (weight - weight_lose);
             BMI = weight / ((height / 100) * (height / 100));
             Age = age;
         }

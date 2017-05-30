@@ -55,10 +55,11 @@ namespace TrenerApp
 
             osoba = PersonData.Instance.GetPerson(0);
 
-            osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
+         //   osoba.WeightLeft = osoba.WeightToLose - (osoba.Weight - osoba.WeightToLose);
 
+            osoba.WeightLeft2 = osoba.WeightLeft - (osoba.Weight - osoba.WeightToLose);
 
-            (this.Owner as MainWindow).BMI_StatusBar.Value = osoba.WeightLeft;
+            (this.Owner as MainWindow).BMI_StatusBar.Value = osoba.WeightLeft2;
 
        //     mainWindow.BMI_StatusBar.Value = osoba.WeightToLose;
 

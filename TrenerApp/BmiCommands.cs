@@ -17,5 +17,6 @@ namespace TrenerApp
         }
 
         public static RoutedUICommand CountBMI { get { return countBMI; } }
+
     }
 }
