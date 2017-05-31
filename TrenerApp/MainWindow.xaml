@@ -156,7 +156,6 @@
                             </Border>
                         </Grid>
                     </Border>
-
                     <Border Background="Gray"
                             Grid.Row="0" 
                             Grid.Column="1"
@@ -164,79 +163,46 @@
                             Margin="30"
                             BorderThickness="1,1,1,1"
                             CornerRadius="30,30,30,30">
-
                         <Grid Name="CaloriesCounterGrid"
                               ShowGridLines="False"
                               Grid.Row="0"
                               Grid.Column="1"
                               Margin="10"
                               Background="Transparent">
-
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-
                             <TextBlock Name="CaloriesTextBlock"
                                        Grid.Column="0"
                                        Grid.ColumnSpan="3"
                                        Grid.Row="0"
                                        Foreground="White"
                                        FontSize="20">
-                                Pozostała ilość kalorii<LineBreak />
-                                do wykorzystania:
+                                Ilość wykorzystanych<LineBreak />
+                                kalorii:
                             </TextBlock>
+                            <Label Name="CaloriesValueDisplay"
+                                   Grid.Column="0" Grid.ColumnSpan="3"
+                                   Grid.Row="1" FontSize="20" Foreground="White"></Label>
                         </Grid>
                     </Border>
-
-                    <Border Background="Gray" 
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            BorderBrush="Black"
-                            Margin="30"
-                            BorderThickness="1,1,1,1"
-                            CornerRadius="30,30,30,30"
-                            >
-                        <Grid Name="NewsFeedGrid"
-                              ShowGridLines="False"
-                              Grid.Row="0"
-                              Grid.Column="3"
-                              Margin="10"
-                              Background="Transparent">
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                        </Grid>
-                    </Border>
-
                     <Grid Name="WorkoutsGrid"
                           Grid.Row="1"
                           Grid.ColumnSpan="3"
                           Margin="10px"
                           Background="Gray"
                           Width="840">
-
                         <Grid.RowDefinitions>
                             <RowDefinition Height="200"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
-
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -246,7 +212,6 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-
                         <Button Grid.Row="0" Grid.Column="0" Height="auto" Width="auto" Click="WegeCategory_Click">
                             <Button.Template>
                                 <ControlTemplate>
@@ -255,7 +220,6 @@
                             </Button.Template>
                         </Button>
                         <Label Grid.Row="1" Grid.Column="0" Background="LightGreen" Content="Wegetariańskie" FontSize="12" Padding="10"/>
-
                         <Button Grid.Row="0" Grid.Column="1" Height="auto" Width="auto" Click="RiceCategory_Click">
                             <Button.Template>
                                 <ControlTemplate>
@@ -265,7 +229,6 @@
                         </Button>
                         <Label Grid.Row="1" Grid.Column="1" Background="Red" Content="Dania z Ryżem"
                                FontSize="12" Padding="10"  Foreground="White"/>
-
                         <Button Grid.Row="0" Grid.Column="2" Height="auto" Width="auto" Click="FruitCategory_Click">
                             <Button.Template>
                                 <ControlTemplate>
@@ -275,7 +238,6 @@
                         </Button>
                         <Label Grid.Row="1" Grid.Column="2" Background="Orange" Content="Owoce"
                                FontSize="12" Padding="10"/>
-
                         <Button Grid.Row="0" Grid.Column="3" Height="auto" Width="auto" Click="VegetableCategory_Click">
                             <Button.Template>
                                 <ControlTemplate>
@@ -285,7 +247,6 @@
                         </Button>
                         <Label Grid.Row="1" Grid.Column="3" Background="Purple" Content="Warzywa"
                                FontSize="12" Padding="10" Foreground="White"/>
-
                         <Button Grid.Row="0" Grid.Column="4" Height="auto" Width="auto" Click="FishCategory_Click">
                             <Button.Template>
                                 <ControlTemplate>
@@ -295,7 +256,6 @@
                         </Button>
                         <Label Grid.Row="1" Grid.Column="4" Background="Yellow" Content="Dania z Rybami"
                                FontSize="12" Padding="10"/>
-
                         <Button Grid.Row="0" Grid.Column="5" Height="auto" Width="auto" Click="SmoothieCategory_Click">
                             <Button.Template>
                                 <ControlTemplate>
@@ -305,7 +265,6 @@
                         </Button>
                         <Label Grid.Row="1" Grid.Column="5" Background="Blue" Content="Smoothie"
                                FontSize="12" Padding="10" Foreground="White"/>
-
                         <Button Grid.Row="0" Grid.Column="6" Height="auto" Width="auto" Click="BreakfastCategory_Click">
                             <Button.Template>
                                 <ControlTemplate>
@@ -315,11 +274,9 @@
                         </Button>
                         <Label Grid.Row="1" Grid.Column="6" Background="Turquoise" Content="Śniadania"
                                FontSize="12" Padding="10" />
-
                     </Grid>
                 </Grid>
             </TabItem>
-
             <TabItem Name="PersonalTab" Height="100">
                 <TabItem.Header>
                     <Image Width="50" Source="images/profile.png"/>
@@ -412,9 +369,6 @@
                         </StackPanel>
                     </Grid>
 
-                    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
-                        <Label FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center">Plany żywieniowe</Label>
-                    </Grid>
 
                     <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
 
@@ -457,6 +411,7 @@
                                      FontSize="30" FontWeight="Bold"
                                      VerticalContentAlignment="Center"
                                      Foreground="Red"
+                                     TextChanged="lb_weight_to_lose_TextChanged"
                                      Background="Transparent"
                                      Text="{Binding Path=WeightToLose,UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <Label Grid.Column="1" Margin="5" HorizontalAlignment="Left" FontSize="30"
@@ -481,6 +436,7 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
@@ -503,7 +459,9 @@
                         </Border>
                     </StackPanel>
 
-                    <Grid Grid.Column="1" Grid.RowSpan="2" Margin="30">
+
+
+                    <Grid Grid.Column="1" Grid.RowSpan="3" Margin="30">
                         <ListBox Name="calendarRecipesList" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -532,7 +490,6 @@
                     </Grid>
                 </Grid>
             </TabItem>
-
             <TabItem Name="RecipesTab" 
                      Height="100">
                 <TabItem.Header>

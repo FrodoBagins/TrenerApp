@@ -22,6 +22,8 @@ namespace TrenerApp
         Person user = new Person();
         Recipe recipe = new Recipe();
 
+        int CaloriesCounter = 0 ;
+
         System.Media.SoundPlayer player = new System.Media.SoundPlayer();
         System.Windows.Threading.DispatcherTimer timer;
         bool isMusicStopped = false;
@@ -52,6 +54,7 @@ namespace TrenerApp
         {
             user = PersonData.Instance.GetPerson(0);
 
+            CaloriesValueDisplay.Content = CaloriesCounter;
             BMI_StatusBar.DataContext = user;
             BMI_Value_Label.DataContext = user;
             BMI_Value_TextBlock.DataContext = user;
@@ -81,6 +84,7 @@ namespace TrenerApp
                     {
                         string tempValue = ee.Value;
                         recipesList.Add(RecipeData.Instance.GetRecipe(int.Parse(tempValue)));
+
                     }
                     calendarRecipesList.ItemsSource = recipesList;
                 }
@@ -309,10 +313,7 @@ namespace TrenerApp
 
             Console.WriteLine(recipeIdValue);
 
-            //  XElement xEle = XElement.Load("..\\..\\Employees.xml");
-            //        xelement.AddFirst(new XElement("calendar",
-            //            new XElement("day", data),
-            //           new XElement("recipes", new XElement("recipeId", recipeIdValue))));
+
 
             xelement.Save("calendar.xml");
 
@@ -328,6 +329,10 @@ namespace TrenerApp
                     Console.WriteLine("Kurwa jego mac");
                     day.Element("recipes").Add(new XElement("recipeId", recipeIdValue));
                     xelement.Save("calendar.xml");
+
+                    CaloriesCounter = CaloriesCounter + RecipeData.Instance.GetRecipe(recipeIdValue).calories;
+                    CaloriesValueDisplay.Content = CaloriesCounter;
+
                 }
                 else
                 {
@@ -341,6 +346,10 @@ namespace TrenerApp
                 new XElement("day", data),
                 new XElement("recipes", new XElement("recipeId", recipeIdValue))));
                 xelement.Save("calendar.xml");
+
+                CaloriesCounter = CaloriesCounter + RecipeData.Instance.GetRecipe(recipeIdValue).calories;
+                CaloriesValueDisplay.Content = CaloriesCounter;
+
             }
         }
 
@@ -451,6 +460,27 @@ namespace TrenerApp
         {
             myTabControl.SelectedIndex = 3;
             CategoriesComboBox.SelectedIndex = 0;
+        }
+
+
+        private void lb_weight_to_lose_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            user = PersonData.Instance.GetPerson(0);
+
+            string weighttolose = lb_weight_to_lose.Text;
+
+            double weighttolosenumber = double.Parse(weighttolose);
+
+            double weight = user.Weight;
+
+
+            user.WeightLeft = weight - weighttolosenumber;
+            user.WeightLeft2 = (weight - weighttolosenumber) - (weight - weighttolosenumber);
+
+            BMI_StatusBar.Maximum = user.WeightLeft;
+            BMI_StatusBar.Value = user.WeightLeft2;
+
+
         }
     }
 }
